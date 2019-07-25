@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>Decor</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -37,15 +37,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Colony Survival\colonyserver_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="BaseGame, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Colony Survival\gamedata\mods\Pipliz\BaseGame\BaseGame.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Colony Survival\colonyserver_Data\Managed\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Open.Nat">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Colony Survival\colonyserver_Data\Managed\Open.Nat.dll</HintPath>
+    </Reference>
+    <Reference Include="Pandaros.API">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Colony Survival\gamedata\mods\Pandaros\API\Pandaros.API.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,19 +69,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DecorTypes.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="meshes\Slab.down.ply">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="meshes\Slab.up.ply">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="modInfo.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -95,14 +83,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Colliders.cs" />
-    <Compile Include="Models\CSGenerateType.cs" />
-    <Compile Include="Models\CSType.cs" />
     <Compile Include="Models\DecorTypes.cs" />
-    <Compile Include="Models\ICSRecipe.cs" />
-    <Compile Include="Models\ICSGenerateType.cs" />
-    <Compile Include="Models\ICSType.cs" />
-    <Compile Include="Models\OnRemove.cs" />
     <Compile Include="Types\GenerateTypeConfig.cs" />
     <Compile Include="Types\GenerateTypes\quarterblocks\corner\raised2.cs" />
     <Compile Include="Types\GenerateTypes\quarterblocks\corner\standard2.cs" />

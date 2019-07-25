@@ -1,4 +1,4 @@
-﻿using MoreDecorations.Models;
+﻿
 using Newtonsoft.Json;
 using Pipliz;
 using Pipliz.JSON;
@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Pandaros.API.Models;
 using Decor.Models;
 
 namespace NACH0.Decor.GenerateTypes.Config
@@ -48,7 +49,7 @@ namespace NACH0.Decor.GenerateTypes.Config
             var file = File.ReadAllText(MOD_FOLDER + "DecorTypes.json");
             DecorTypes = JsonConvert.DeserializeObject<Dictionary<string, List<DecorType>>>(file);
 
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt")))
             {
@@ -57,7 +58,7 @@ namespace NACH0.Decor.GenerateTypes.Config
         }
 
 
-        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        /*private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             ServerLog.LogAsyncMessage(new LogMessage(args.Name, UnityEngine.LogType.Log));
             try
@@ -81,10 +82,10 @@ namespace NACH0.Decor.GenerateTypes.Config
             }
 
             return null;
-        }
+        }*/
     }
 
-    public static class ExtentionMethods
+    /*public static class ExtentionMethods
     {
         public static JSONNode JsonSerialize<T>(this T obj)
         {
@@ -97,7 +98,7 @@ namespace NACH0.Decor.GenerateTypes.Config
             }
             var json = JSON.DeserializeString(objStr);
 
-            if (obj is ICSNACH0Type csType)
+            if (obj is ICSType csType)
                 json.SetAs("customData", csType.customData);
 
             return json;
@@ -108,7 +109,7 @@ namespace NACH0.Decor.GenerateTypes.Config
             return JsonConvert.DeserializeObject<T>(node.ToString(), new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
         }
 
-        public static void LoadRecipe(this ICSNACH0Recipe recipe)
+        public static void LoadRecipe(this ICSRecipe recipe)
         {
             var requirements = new List<InventoryItem>();
             var results = new List<Recipes.RecipeResult>();
@@ -126,5 +127,5 @@ namespace NACH0.Decor.GenerateTypes.Config
 
                 ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
         }
-    }
+    }*/
 }

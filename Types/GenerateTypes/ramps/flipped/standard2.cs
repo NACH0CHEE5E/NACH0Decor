@@ -1,20 +1,13 @@
 ﻿using System.Collections.Generic;
 using static ItemTypesServer;
 using Pipliz.JSON;
-using Newtonsoft.Json;
-using AI;
-using Jobs;
-using NPC;
 using Pipliz;
-using System;
-using System.Linq;
-using System.Reflection;
-using Random = System.Random;
-using MoreDecorations.Models;
 using System.IO;
 using NACH0.Decor.GenerateTypes.Config;
-using UnityEngine;
+using Pandaros.API.Models;
+using Recipes;
 using Decor.Models;
+using Pandaros.API;
 
 namespace Nach0.Decor.GenerateTypes.InvertedRamp
 {
@@ -52,25 +45,30 @@ namespace Nach0.Decor.GenerateTypes.InvertedRamp
         public override bool? isPlaceable => true;
         public override bool? needsBase => false;
         public override bool? isRotatable => true;
-        public override JSONNode customData { get; set; } = new JSONNode().SetAs("useNormalMap", true).SetAs("useHeightMap", true);
-        public override string mesh { get; set; } = GenerateTypeConfig.MOD_MESH_PATH + Type.NAME + GenerateTypeConfig.MESHTYPE;
+
+        public TypeBase()
+        {
+            customData.useNormalMap = true;
+            customData.useHeightMap = true;
+        }
+        public override dynamic customData { get; set; } = new System.Dynamic.ExpandoObject(); public override string mesh { get; set; } = GenerateTypeConfig.MOD_MESH_PATH + Type.NAME + GenerateTypeConfig.MESHTYPE;
         public override string sideall { get; set; }
     }
 
     public class TypeSpecs : CSGenerateType
     {
         public override string generateType { get; set; } = "rotateBlock";
-        public override ICSNACH0Type baseType { get; set; } = new TypeBase();
+        public override ICSType baseType { get; set; } = new TypeBase();
         public override string typeName { get; set; }
     }
 
-    public class TypeRecipe : ICSNACH0Recipe
+    public class TypeRecipe : ICSRecipe
     {
             public string name { get; set; } = GenerateTypeConfig.TYPEPREFIX + Type.NAME;
 
-            public List<RecipeItem> requires { get; set; } = new List<RecipeItem>();
+            public List<RecipeItem> requires => new List<RecipeItem>();
 
-            public List<RecipeItem> results { get; set; } = new List<RecipeItem>();
+        public List<RecipeResult> results => new List<RecipeResult>();
 
             public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
 
@@ -81,13 +79,13 @@ namespace Nach0.Decor.GenerateTypes.InvertedRamp
         public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
     }
 
-    public class DummyJobRecipe : ICSNACH0Recipe
+    public class DummyJobRecipe : ICSRecipe
     {
         public string name { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker.dummy";
 
-        public List<RecipeItem> requires { get; set; } = new List<RecipeItem>();
+        public List<RecipeItem> requires => new List<RecipeItem>();
 
-        public List<RecipeItem> results { get; set; } = new List<RecipeItem>();
+        public List<RecipeResult> results => new List<RecipeResult>();
 
         public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
 
@@ -166,7 +164,7 @@ namespace Nach0.Decor.GenerateTypes.InvertedRamp
                     var recipe = new TypeRecipe();
                     recipe.name = typeNameRecipe;
                     recipe.requires.Add(new RecipeItem(currentType.type));
-                    recipe.results.Add(new RecipeItem(typeName));
+                    recipe.results.Add(new RecipeResult(typeName));
 
 
                     recipe.LoadRecipe();
