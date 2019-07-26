@@ -8,6 +8,8 @@ using Pandaros.API.Models;
 using Pandaros.API;
 using Recipes;
 using Decor.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
 {
@@ -37,12 +39,7 @@ namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
         public override bool? needsBase => false;
         public override bool? isRotatable => true;
 
-        public TypeBase()
-        {
-            customData.useNormalMap = true;
-            customData.useHeightMap = true;
-        }
-        public override dynamic customData { get; set; } = new System.Dynamic.ExpandoObject();
+        public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHightMap\": true, \"useNormalMap\": true }");
         public override string mesh { get; set; } = GenerateTypeConfig.MOD_MESH_PATH + Type.NAME + GenerateTypeConfig.MESHTYPE;
         public override string sideall { get; set; }
         //public override List<OnRemove> onRemove { get => base.onRemove; set => base.onRemove = value; }
@@ -165,7 +162,20 @@ namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
                     recipe.results.Add(new RecipeResult(typeName));
 
 
-                    recipe.LoadRecipe();
+                    var requirements = new List<InventoryItem>();
+                    var results = new List<RecipeResult>();
+                    recipe.JsonSerialize();
+
+                    foreach (var ri in recipe.requires)
+                        if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                            requirements.Add(new InventoryItem(itemIndex, ri.amount));
+
+                    foreach (var ri in recipe.results)
+                        results.Add(ri);
+
+                    var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
+
+                    ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
                 }
         }
     }

@@ -8,6 +8,8 @@ using Pandaros.API.Models;
 using Recipes;
 using Decor.Models;
 using Pandaros.API;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Nach0.Decor.GenerateTypes.Slab
 {
@@ -31,12 +33,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
         public override bool? isRotatable => true;
         public override bool? isSolid => true;
 
-        public TypeParent()
-        {
-            customData.useNormalMap = true;
-            customData.useHeightMap = true;
-        }
-        public override dynamic customData { get; set; } = new System.Dynamic.ExpandoObject();
+        public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHightMap\": true, \"useNormalMap\": true }");
     }
 
     public class TypeUp : CSType
@@ -169,7 +166,20 @@ namespace Nach0.Decor.GenerateTypes.Slab
                     recipe.results.Add(new RecipeResult(typeName));
 
 
-                    recipe.LoadRecipe();
+                    var requirements = new List<InventoryItem>();
+                    var results = new List<RecipeResult>();
+                    recipe.JsonSerialize();
+
+                    foreach (var ri in recipe.requires)
+                        if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                            requirements.Add(new InventoryItem(itemIndex, ri.amount));
+
+                    foreach (var ri in recipe.results)
+                        results.Add(ri);
+
+                    var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
+
+                    ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
                 }
         }
     }

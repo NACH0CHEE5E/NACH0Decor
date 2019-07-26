@@ -8,6 +8,8 @@ using Pandaros.API.Models;
 using Recipes;
 using Pandaros.API;
 using Decor.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Nach0.Decor.GenerateTypes.RaisedQuarterBlock
 {
@@ -19,12 +21,7 @@ namespace Nach0.Decor.GenerateTypes.RaisedQuarterBlock
 
     public class TypeBase : CSType
     {
-        public TypeBase()
-        {
-            customData.useNormalMap = true;
-            customData.useHeightMap = true;
-        }
-        public override dynamic customData { get; set; } = new System.Dynamic.ExpandoObject();
+        public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHightMap\": true, \"useNormalMap\": true }");
         public override List<string> categories { get; set; } = new List<string>()
         {
             GenerateTypeConfig.NAME, GenerateTypeConfig.MODNAME, LocalGenerateConfig.PARENT_NAME, "b", LocalGenerateConfig.NAME, "b"
@@ -163,7 +160,20 @@ namespace Nach0.Decor.GenerateTypes.RaisedQuarterBlock
                     recipe.results.Add(new RecipeResult(typeName));
 
 
-                    recipe.LoadRecipe();
+                    var requirements = new List<InventoryItem>();
+                    var results = new List<RecipeResult>();
+                    recipe.JsonSerialize();
+
+                    foreach (var ri in recipe.requires)
+                        if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                            requirements.Add(new InventoryItem(itemIndex, ri.amount));
+
+                    foreach (var ri in recipe.results)
+                        results.Add(ri);
+
+                    var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
+
+                    ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
                 }
         }
     }
