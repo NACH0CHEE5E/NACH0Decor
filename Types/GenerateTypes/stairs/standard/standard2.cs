@@ -56,7 +56,7 @@ namespace Nach0.Decor.GenerateTypes.Stairs
 
     public class TypeRecipe : ICSRecipe
     {
-            public string name { get; set; } = GenerateTypeConfig.TYPEPREFIX + Type.NAME;
+        public string name { get; set; }
 
         public List<RecipeItem> requires => new List<RecipeItem>();
 
@@ -69,23 +69,6 @@ namespace Nach0.Decor.GenerateTypes.Stairs
             public bool isOptional { get; set; } = false;
 
            public int defaultLimit { get; set; } = 0;
-
-        public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
-    }
-
-    public class DummyJobRecipe : ICSRecipe
-    {
-        public string name { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker.dummy";
-
-        public List<RecipeItem> requires => new List<RecipeItem>();
-
-        public List<RecipeResult> results => new List<RecipeResult>();
-
-        public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
-
-        public bool isOptional { get; set; } = true;
-
-        public int defaultLimit { get; set; } = 0;
 
         public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
     }
@@ -166,9 +149,19 @@ namespace Nach0.Decor.GenerateTypes.Stairs
                     recipe.JsonSerialize();
 
                     foreach (var ri in recipe.requires)
+                    {
                         if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                        {
                             requirements.Add(new InventoryItem(itemIndex, ri.amount));
-
+                        }
+                        else
+                        {
+                            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt"), true))
+                            {
+                                outputFile.WriteLine(NAME + " recipe gen error");
+                            }
+                        }
+                    }
                     foreach (var ri in recipe.results)
                         results.Add(ri);
 

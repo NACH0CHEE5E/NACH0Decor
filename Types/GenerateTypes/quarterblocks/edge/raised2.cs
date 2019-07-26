@@ -54,9 +54,9 @@ namespace Nach0.Decor.GenerateTypes.RaisedEdgeBlock
 
     public class TypeRecipe : ICSRecipe
     {
-            public string name { get; set; } = GenerateTypeConfig.TYPEPREFIX + Type.NAME;
+        public string name { get; set; }
 
-            public List<RecipeItem> requires => new List<RecipeItem>();
+        public List<RecipeItem> requires => new List<RecipeItem>();
 
         public List<RecipeResult> results => new List<RecipeResult>();
 
@@ -69,22 +69,6 @@ namespace Nach0.Decor.GenerateTypes.RaisedEdgeBlock
         public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
     }
 
-    public class DummyJobRecipe : ICSRecipe
-    {
-        public string name { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker.dummy";
-
-        public List<RecipeItem> requires => new List<RecipeItem>();
-
-        public List<RecipeResult> results => new List<RecipeResult>();
-
-        public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
-
-        public bool isOptional { get; set; } = true;
-
-        public int defaultLimit { get; set; } = 0;
-
-        public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
-    }
 
 
 

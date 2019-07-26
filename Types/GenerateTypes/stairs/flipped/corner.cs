@@ -56,7 +56,7 @@ namespace Nach0.Decor.GenerateTypes.InvertedStairsCorner
 
     public class TypeRecipe : ICSRecipe
     {
-        public string name { get; set; } = GenerateTypeConfig.TYPEPREFIX + Type.NAME;
+        public string name { get; set; }
 
         public List<RecipeItem> requires => new List<RecipeItem>();
 
