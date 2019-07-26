@@ -3,11 +3,9 @@ using static ItemTypesServer;
 using Pipliz.JSON;
 using Pipliz;
 using System.IO;
-using NACH0.Decor.GenerateTypes.Config;
 using Pandaros.API.Models;
 using Pandaros.API;
 using Recipes;
-using Decor.Models;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
@@ -84,10 +82,11 @@ namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
         public static void generateTypes()
         {
             //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " generation", LogType.Log));
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt"), true))
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "TypeList.txt"), true))
             {
-                outputFile.WriteLine("Begining " + NAME + " generation");
+                outputFile.WriteLine(NAME + " types:");
             }
+            DecorLogger.LogToFile("Begining " + NAME + " generation");
             JSONNode list = new JSONNode(NodeType.Array);
 
             if (GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
@@ -98,10 +97,8 @@ namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
                     var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.type;
 
                     //ServerLog.LogAsyncMessage(new LogMessage("Generating type " + typeName, LogType.Log));
-                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt"), true))
-                    {
-                        outputFile.WriteLine("Generating type " + typeName);
-                    }
+                    
+                    DecorLogger.LogToFile("Generating type " + typeName);
 
                     var Typesbase = new TypeSpecs();
                     Typesbase.baseType.categories.Add(currentType.type);
@@ -112,20 +109,25 @@ namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
 
 
                     list.AddToArray(Typesbase.JsonSerialize());
-
+                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "TypeList.txt"), true))
+                    {
+                        outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                    }
 
                 }
             ItemTypesServer.BlockRotator.Patches.AddPatch(new ItemTypesServer.BlockRotator.BlockGeneratePatch(GenerateTypeConfig.MOD_FOLDER, -99999, list));
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "TypeList.txt"), true))
+            {
+                outputFile.WriteLine("");
+            }
         }
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterWorldLoad, GENERATE_RECIPES_NAME)]
         public static void generateRecipes()
         {
             //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " recipe generation", LogType.Log));
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt"), true))
-            {
-                outputFile.WriteLine("Begining " + NAME + " recipe generation");
-            }
+            
+            DecorLogger.LogToFile("Begining " + NAME + " recipe generation");
 
             if (GenerateTypeConfig.DecorTypes.TryGetValue(LocalGenerateConfig.NAME, out List<DecorType> blockTypes))
                 foreach (var currentType in blockTypes)
@@ -134,10 +136,8 @@ namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
                     var typeNameRecipe = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.type + ".Recipe";
 
                     //ServerLog.LogAsyncMessage(new LogMessage("Generating recipe " + typeNameRecipe, LogType.Log));
-                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt"), true))
-                    {
-                        outputFile.WriteLine("Generating recipe " + typeNameRecipe);
-                    }
+                    
+                    DecorLogger.LogToFile("Generating recipe " + typeNameRecipe);
 
                     var recipe = new TypeRecipe();
                     recipe.name = typeNameRecipe;
@@ -150,8 +150,16 @@ namespace Nach0.Decor.GenerateTypes.RaisedCornerBlock
                     recipe.JsonSerialize();
 
                     foreach (var ri in recipe.requires)
+                    {
                         if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                        {
                             requirements.Add(new InventoryItem(itemIndex, ri.amount));
+                        }
+                        else
+                        {
+                            DecorLogger.LogToFile("Recipe: " + typeNameRecipe + " has bad requirement(s)");
+                        }
+                    }
 
                     foreach (var ri in recipe.results)
                         results.Add(ri);

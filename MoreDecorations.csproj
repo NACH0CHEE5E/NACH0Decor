@@ -82,6 +82,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
     <Compile Include="Models\DecorTypes.cs" />
     <Compile Include="Types\GenerateTypeConfig.cs" />
     <Compile Include="Types\GenerateTypes\quarterblocks\corner\raised2.cs" />

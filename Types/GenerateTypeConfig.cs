@@ -8,9 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Pandaros.API.Models;
-using Decor.Models;
 
-namespace NACH0.Decor.GenerateTypes.Config
+namespace Nach0.Decor
 {
     [ModLoader.ModManager]
     public class GenerateTypeConfig
@@ -51,7 +50,7 @@ namespace NACH0.Decor.GenerateTypes.Config
 
             //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt")))
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(GenerateTypeConfig.MOD_FOLDER, "TypeList.txt")))
             {
                 outputFile.WriteLine("");
             }
