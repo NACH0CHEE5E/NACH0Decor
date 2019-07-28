@@ -127,4 +127,20 @@ namespace Nach0.Decor
                 ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
         }
     }*/
+    public class TypeRecipeBase : ICSRecipe
+    {
+        public string name { get; set; }
+
+        public List<RecipeItem> requires { get; set; } = new List<RecipeItem>();
+
+        public List<RecipeResult> results { get; set; } = new List<RecipeResult>();
+
+        public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
+
+        public bool isOptional { get; set; } = false;
+
+        public int defaultLimit { get; set; } = 0;
+
+        public string Job { get; set; }
+    }
 }

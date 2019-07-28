@@ -8,6 +8,7 @@ namespace Nach0.Decor
 {
     public class DecorType
     {
+        public string name { get; set; }
         public string type { get; set; }
         public string texture { get; set; }
     }

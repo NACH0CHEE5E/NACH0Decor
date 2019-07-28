@@ -63,7 +63,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
 
     }
 
-    public class TypeRecipe : ICSRecipe
+    /*public class TypeRecipe : ICSRecipe
     {
         public string name { get; set; }
 
@@ -78,7 +78,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
         public int defaultLimit { get; set; } = 0;
 
         public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
-    }
+    }*/
 
 
 
@@ -104,16 +104,16 @@ namespace Nach0.Decor.GenerateTypes.Slab
                 {
                     //ServerLog.LogAsyncMessage(new LogMessage("Found parent " + currentType.type, LogType.Log));
                     //ServerLog.LogAsyncMessage(new LogMessage("Found texture " + currentType.texture, LogType.Log));
-                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.type;
+                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
                     var typeNameUp = typeName + ".up";
                     var typeNameDown = typeName + ".down";
 
                     //ServerLog.LogAsyncMessage(new LogMessage("Generating type " + typeName, LogType.Log));
-                    
-                    DecorLogger.LogToFile("Generating type " + typeName);
+
+                    DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
 
                     var baseType = new TypeParent();
-                    baseType.categories.Add(currentType.type);
+                    baseType.categories.Add(currentType.texture);
                     baseType.name = typeName;
                     baseType.sideall = currentType.texture;
                     baseType.rotatablexn = typeNameUp;
@@ -154,22 +154,24 @@ namespace Nach0.Decor.GenerateTypes.Slab
             if (GenerateTypeConfig.DecorTypes.TryGetValue(LocalGenerateConfig.NAME, out List<DecorType> blockTypes))
                 foreach (var currentType in blockTypes)
                 {
-                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.type;
-                    var typeNameRecipe = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.type + ".Recipe";
+                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
+                    var typeNameRecipe = typeName + ".Recipe";
 
                     //ServerLog.LogAsyncMessage(new LogMessage("Generating recipe " + typeNameRecipe, LogType.Log));
                     
                     DecorLogger.LogToFile("Generating recipe " + typeNameRecipe);
 
-                    var recipe = new TypeRecipe();
+                    var recipe = new TypeRecipeBase();
                     recipe.name = typeNameRecipe;
                     recipe.requires.Add(new RecipeItem(currentType.type));
                     recipe.results.Add(new RecipeResult(typeName));
+                    recipe.Job = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
 
 
                     var requirements = new List<InventoryItem>();
                     var results = new List<RecipeResult>();
                     recipe.JsonSerialize();
+                    DecorLogger.LogToFile("JSON - " + recipe.JsonSerialize().ToString());
 
                     foreach (var ri in recipe.requires)
                     {
@@ -179,7 +181,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
                         }
                         else
                         {
-                            DecorLogger.LogToFile("Recipe: " + typeNameRecipe + " has bad requirement(s)");
+                            DecorLogger.LogToFile("\"" + typeNameRecipe + "\" bad requirement \"" + ri.type + "\"");
                         }
                     }
 
@@ -189,6 +191,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
                     var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
 
                     ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
+                    
                 }
         }
     }
