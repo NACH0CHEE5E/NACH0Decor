@@ -49,6 +49,7 @@ namespace Nach0.Decor.GenerateTypes.Ramp
         public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHightMap\": true, \"useNormalMap\": true }");
         public override string mesh { get; set; } = GenerateTypeConfig.MOD_MESH_PATH + Type.NAME + GenerateTypeConfig.MESHTYPE;
         public override string sideall { get; set; }
+        public override string icon { get; set; } = GenerateTypeConfig.MOD_ICON_PATH + Type.NAME + GenerateTypeConfig.ICONTYPE;
         //public override List<OnRemove> onRemove { get => base.onRemove; set => base.onRemove = value; }
     }
 

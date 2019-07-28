@@ -43,7 +43,7 @@ namespace Nach0.Decor
             GAMEDATA_FOLDER = path.Substring(0, path.IndexOf("gamedata") + "gamedata".Length).Replace("\\", "/") + "/";
 
             MOD_MESH_PATH = MOD_FOLDER + "gamedata/meshes/";
-            MOD_ICON_PATH = MOD_FOLDER + "textures/icons/";
+            MOD_ICON_PATH = MOD_FOLDER + "gamedata/textures/icons/";
 
             var file = File.ReadAllText(MOD_FOLDER + "DecorTypes.json");
             DecorTypes = JsonConvert.DeserializeObject<Dictionary<string, List<DecorType>>>(file);

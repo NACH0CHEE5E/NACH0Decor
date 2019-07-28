@@ -40,6 +40,7 @@ namespace Nach0.Decor.GenerateTypes.RaisedQuarterBlock
         //public override JSONNode customData { get; set; } = new JSONNode().SetAs("useNormalMap", true).SetAs("useHeightMap", true);
         public override string mesh { get; set; } = GenerateTypeConfig.MOD_MESH_PATH + Type.NAME + GenerateTypeConfig.MESHTYPE;
         public override string sideall { get; set; }
+        public override string icon { get; set; } = GenerateTypeConfig.MOD_ICON_PATH + Type.NAME + GenerateTypeConfig.ICONTYPE;
         //public override List<OnRemove> onRemove { get => base.onRemove; set => base.onRemove = value; }
     }
 

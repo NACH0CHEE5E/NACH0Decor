@@ -32,6 +32,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
         public override bool? isSolid => true;
 
         public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHightMap\": true, \"useNormalMap\": true }");
+        public override string icon { get; set; } = GenerateTypeConfig.MOD_ICON_PATH + Type.NAME + GenerateTypeConfig.ICONTYPE;
     }
 
     public class TypeUp : CSType
