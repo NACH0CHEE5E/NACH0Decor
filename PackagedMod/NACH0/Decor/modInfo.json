@@ -224,6 +224,21 @@
 		}
 	],
 	"patchnotes": [
+		{	
+			"version": "3.0.0",
+			"notes": [
+				"All meshes added",
+				"collisions fixed",
+				"basic icons added",
+				"config per save added",
+				"typelist showing what types have been generated added",
+				"failsafe for missing file added",
+				"editable example file (will get overwritten with updates)",
+				"Logger added for easy debuging",
+				"*If you find any issues or have suggestions join the discord",
+				"*discord.gg/tqFhxhm"
+			]
+		},
 		{
 			"version": "2.0.0",
 			"notes": [
