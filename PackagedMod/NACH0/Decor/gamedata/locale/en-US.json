@@ -1,0 +1,79 @@
+{
+	"sentences" : {
+		"popup" : {
+			"limits" : {
+				"NACH0" : {
+					"Jobs" : {
+						"MakerMaker" : "Maker Maker limits",
+						"SlabMaker" : "Slab Maker limits",
+						"VerticalSlabMaker" : "Vertical Slab Maker limits",
+						"StairsMaker" : "Stair Maker limits",
+						"StairsCornerMaker" : "Stair Corner Maker limits",
+						"StairsCornerInvertedMaker" : "Stair Corner Inverted Maker limits",
+						"InvertedStairsMaker" : "Inverted Stair Maker limits",
+						"InvertedStairsCornerMaker" : "Inverted Stair Corner Maker limits",
+						"InvertedStairsCornerInvertedMaker" : "Inverted Stair Corner Inverted Maker limits",
+						"RampMaker" : "Ramp Maker limits",
+						"RampCornerMaker" : "Ramp Corner Maker limits",
+						"RampCornerInvertedMaker" : "Ramp Corner Inverted Maker limits",
+						"InvertedRampMaker" : "Inverted Ramp Maker limits",
+						"InvertedRampCornerMaker" : "Inverted Ramp Corner Maker limits",
+						"InvertedRampCornerInvertedMaker" : "Inverted Ramp Corner Inverted Maker limits",
+						"QuarterBlockMaker" : "Quarter Block Maker limits",
+						"RaisedQuarterBlockMaker" : "Raised Quarter Block Maker limits",
+						"EdgeBlockMaker" : "Edge Block Maker limits",
+						"RaisedEdgeBlockMaker" : "Raised Edge Block Maker limits",
+						"CornerBlockMaker" : "Corner Block Maker limits",
+						"RaisedCornerBlockMaker" : "Raised Corner Block Maker limits"
+					}
+				}
+			}
+		}
+	},
+	"types" : {
+		"NACH0.Types.MakerMaker" : "Maker Maker",
+		"NACH0.Types.SlabMaker" : "Slab Maker",
+		"NACH0.Types.VerticalSlabMaker" : "Vertical Slab Maker",
+		"NACH0.Types.StairsMaker" : "Stair Maker",
+		"NACH0.Types.StairsCornerMaker" : "Stair Corner Maker",
+		"NACH0.Types.StairsCornerInvertedMaker" : "Stair Corner Inverted Maker",
+		"NACH0.Types.InvertedStairsMaker" : "Inverted Stair Maker",
+		"NACH0.Types.InvertedStairsCornerMaker" : "Inverted Stair Corner Maker",
+		"NACH0.Types.InvertedStairsCornerInvertedMaker" : "Inverted Stair Corner Inverted Maker",
+		"NACH0.Types.RampMaker" : "Ramp Maker",
+		"NACH0.Types.RampCornerMaker" : "Ramp Corner Maker",
+		"NACH0.Types.RampCornerInvertedMaker" : "Ramp Corner Inverted Maker",
+		"NACH0.Types.InvertedRampMaker" : "Inverted Ramp Maker",
+		"NACH0.Types.InvertedRampCornerMaker" : "Inverted Ramp Corner Maker",
+		"NACH0.Types.InvertedRampCornerInvertedMaker" : "Inverted Ramp Corner Inverted Maker",
+		"NACH0.Types.QuarterBlockMaker" : "Quarter Block Maker",
+		"NACH0.Types.RaisedQuarterBlockMaker" : "Raised Quarter Block Maker",
+		"NACH0.Types.EdgeBlockMaker" : "Edge Block Maker",
+		"NACH0.Types.RaisedEdgeBlockMaker" : "Raised Edge Block Maker",
+		"NACH0.Types.CornerBlockMaker" : "Corner Block Maker",
+		"NACH0.Types.RaisedCornerBlockMaker" : "Raised Corner Bock Maker"
+	},
+	"typeuses" : {
+		"NACH0.Types.MakerMaker" : "Makes Makers for decorative blocks",
+		"NACH0.Types.SlabMaker" : "Makes Slabs",
+		"NACH0.Types.VerticalSlabMaker" : "Makes Vertical Slabs",
+		"NACH0.Types.StairsMaker" : "Makes Stairs",
+		"NACH0.Types.StairsCornerMaker" : "Makes Stair Corners",
+		"NACH0.Types.StairsCornerInvertedMaker" : "Makes Stair Corner Inverteds",
+		"NACH0.Types.InvertedStairsMaker" : "Makes Inverted Stairs",
+		"NACH0.Types.InvertedStairsCornerMaker" : "Makes Inverted Stair Corners",
+		"NACH0.Types.InvertedStairsCornerInvertedMaker" : "Makes Inverted Stair Corner Inverteds",
+		"NACH0.Types.RampMaker" : "Makes Ramps",
+		"NACH0.Types.RampCornerMaker" : "Makes Ramp Corners",
+		"NACH0.Types.RampCornerInvertedMaker" : "Makes Ramp Corner Inverteds",
+		"NACH0.Types.InvertedRampMaker" : "Makes Inverted Ramps",
+		"NACH0.Types.InvertedRampCornerMaker" : "Makes Inverted Ramp Corners",
+		"NACH0.Types.InvertedRampCornerInvertedMaker" : "Makes Inverted Ramp Corner Inverteds",
+		"NACH0.Types.QuarterBlockMaker" : "Makes Quarter Blocks",
+		"NACH0.Types.RaisedQuarterBlockMaker" : "Makes Raised Quarter Blocks",
+		"NACH0.Types.EdgeBlockMaker" : "Makes Edge Blocks",
+		"NACH0.Types.RaisedEdgeBlockMaker" : "Makes Raised Edge Blocks",
+		"NACH0.Types.CornerBlockMaker" : "Makes Corner Blocks",
+		"NACH0.Types.RaisedCornerBlockMaker" : "Makes Raised Corner Bocks"
+	}
+}

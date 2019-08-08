@@ -31,7 +31,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
         public override bool? isRotatable => true;
         public override bool? isSolid => true;
 
-        public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHightMap\": true, \"useNormalMap\": true }");
+        public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHeightMap\": true, \"useNormalMap\": true }");
         public override string icon { get; set; } = GenerateTypeConfig.MOD_ICON_PATH + Type.NAME + GenerateTypeConfig.ICONTYPE;
     }
 
@@ -93,7 +93,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
         [ModLoader.ModCallback(ModLoader.EModCallbackType.AddItemTypes, GENERATE_TYPES_NAME)]
         public static void generateTypes(Dictionary<string, ItemTypeRaw> types)
         {
-            ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " type generation", LogType.Log));
+            //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " type generation", LogType.Log));
             using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
             {
                 outputFile.WriteLine(NAME + " types:");

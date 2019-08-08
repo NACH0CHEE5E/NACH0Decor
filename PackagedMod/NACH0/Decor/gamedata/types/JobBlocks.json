@@ -4,8 +4,8 @@
 			"NACH0",
 			"Decor"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"icon": "./../textures/icons/MakerMaker.png",
 		"sideall": "planks",
 		"sidey+": "NACH0.Textures.MakerMaker"
@@ -21,8 +21,8 @@
 			"Slab",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/SlabMaker.png",
 		"sidey+": "NACH0.Textures.SlabMaker"
@@ -36,8 +36,8 @@
 			"VerticalSlab",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/VerticalSlabMaker.png",
 		"sidey+": "NACH0.Textures.VerticalSlabMaker"
@@ -53,8 +53,8 @@
 			"Stairs",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/StairsMaker.png",
 		"sidey+": "NACH0.Textures.StairsMaker"
@@ -68,8 +68,8 @@
 			"StairsCorner",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/StairsCornerMaker.png",
 		"sidey+": "NACH0.Textures.StairsCornerMaker"
@@ -83,8 +83,8 @@
 			"StairsCornerInverted",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/StairsCornerInvertedMaker.png",
 		"sidey+": "NACH0.Textures.StairsCornerInvertedMaker"
@@ -99,8 +99,8 @@
 			"InvertedStairs",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/InvertedStairsMaker.png",
 		"sidey+": "NACH0.Textures.InvertedStairsMaker"
@@ -114,8 +114,8 @@
 			"InvertedStairsCorner",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/InvertedStairsCornerMaker.png",
 		"sidey+": "NACH0.Textures.InvertedStairsCornerMaker"
@@ -129,8 +129,8 @@
 			"InvertedStairsCornerInverted",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/InvertedStairsCornerInvertedMaker.png",
 		"sidey+": "NACH0.Textures.InvertedStairsCornerInvertedMaker"
@@ -146,8 +146,8 @@
 			"Ramp",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/RampMaker.png",
 		"sidey+": "NACH0.Textures.RampMaker"
@@ -161,8 +161,8 @@
 			"RampCorner",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/RampCornerMaker.png",
 		"sidey+": "NACH0.Textures.RampCornerMaker"
@@ -176,8 +176,8 @@
 			"RampCornerInverted",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/RampCornerInvertedMaker.png",
 		"sidey+": "NACH0.Textures.RampCornerInvertedMaker"
@@ -192,8 +192,8 @@
 			"InvertedRamp",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/InvertedRampMaker.png",
 		"sidey+": "NACH0.Textures.InvertedRampMaker"
@@ -207,8 +207,8 @@
 			"InvertedRampCorner",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/InvertedRampCornerMaker.png",
 		"sidey+": "NACH0.Textures.InvertedRampCornerMaker"
@@ -222,8 +222,8 @@
 			"InvertedRampCornerInverted",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"sideall": "planks",
 		"icon": "./../textures/icons/InvertedRampCornerInvertedMaker.png",
 		"sidey+": "NACH0.Textures.InvertedRampCornerInvertedMaker"
@@ -239,8 +239,8 @@
 			"QuarterBlock",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"icon": "./../textures/icons/QuarterBlockMaker.png",
 		"sideall": "planks",
 		"sidey+": "NACH0.Textures.QuarterBlockMaker"
@@ -254,8 +254,8 @@
 			"RaisedQuarterBlock",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"icon": "./../textures/icons/RaisedQuarterBlockMaker.png",
 		"sideall": "planks",
 		"sidey+": "NACH0.Textures.RaisedQuarterBlockMaker"
@@ -270,8 +270,8 @@
 			"EdgeBlock",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"icon": "./../textures/icons/EdgeBlockMaker.png",
 		"sideall": "planks",
 		"sidey+": "NACH0.Textures.EdgeBlockMaker"
@@ -285,8 +285,8 @@
 			"RaisedEdgeBlock",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"icon": "./../textures/icons/RaisedEdgeBlockMaker.png",
 		"sideall": "planks",
 		"sidey+": "NACH0.Textures.RaisedEdgeBlockMaker"
@@ -301,8 +301,8 @@
 			"CornerBlock",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"icon": "./../textures/icons/CornerBlockMaker.png",
 		"sideall": "planks",
 		"sidey+": "NACH0.Textures.CornerBlockMaker"
@@ -316,8 +316,8 @@
 			"RaisedCornerBlock",
 			"a"
 		],
-		"onPlaceAudio": "stonePlace",
-		"onRemoveAudio": "stoneDelete",
+		"onPlaceAudio": "woodPlace",
+		"onRemoveAudio": "woodDeleteLight",
 		"icon": "./../textures/icons/RaisedCornerBlockMaker.png",
 		"sideall": "planks",
 		"sidey+": "NACH0.Textures.RaisedCornerBlockMaker"

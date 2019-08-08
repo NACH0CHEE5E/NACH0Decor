@@ -1,178 +1,176 @@
 ﻿using System.Collections.Generic;
 using static ItemTypesServer;
 using Pipliz.JSON;
-using MoreDecorations.Types.GenerateTypes.Config;
+using Pipliz;
+using System.IO;
+using Pandaros.API.Models;
+using Recipes;
+using Pandaros.API;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
-namespace MoreDecorations.Types.GenerateTypes.QuarterBlocks
+namespace Nach0.Decor.GenerateTypes.QuarterBlock
 {
-    [ModLoader.ModManager]
-    class QuarterBlocks
+    public class LocalGenerateConfig
     {
+        public const string NAME = "QuarterBlock";
+        public const string PARENT_NAME = NAME;
+    }
 
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AddItemTypes, "Nach0.MoreDecorations.GenerateTypes.quarterblocks")]
-        static void generateTypes(Dictionary<string, ItemTypeRaw> types)
+    public class TypeBase : CSType
+    {
+        public override List<string> categories { get; set; } = new List<string>()
         {
-            var i = 0;
-            var type = "quarterblock";
+            GenerateTypeConfig.NAME, GenerateTypeConfig.MODNAME, LocalGenerateConfig.PARENT_NAME, "a", LocalGenerateConfig.NAME, "b"
+        };
+        public override Colliders colliders { get; set; } = new Colliders()
+        {
+            boxes = new List<Colliders.Boxes>()
+                {
+                    new Colliders.Boxes(new List<float>(){ 0.5f, 0f, 0.5f }, new List<float>(){ 0f, -0.5f, -0.5f }),
+                },
+            collidePlayer = true,
+            collideSelection = true
+        };
+        public override int? maxStackSize => 500;
+        public override bool? isPlaceable => true;
+        public override bool? needsBase => false;
+        public override bool? isRotatable => true;
 
-            while (i < GenerateTypeConfig.standardList.Length)
+        public override JObject customData { get; set; } = JsonConvert.DeserializeObject<JObject>("{ \"useHeightMap\": true, \"useNormalMap\": true }");
+        public override string mesh { get; set; } = GenerateTypeConfig.MOD_MESH_PATH + Type.NAME + GenerateTypeConfig.MESHTYPE;
+        public override string sideall { get; set; }
+        public override string icon { get; set; } = GenerateTypeConfig.MOD_ICON_PATH + Type.NAME + GenerateTypeConfig.ICONTYPE;
+        //public override List<OnRemove> onRemove { get => base.onRemove; set => base.onRemove = value; }
+    }
+
+    public class TypeSpecs : CSGenerateType
+    {
+        public override string generateType { get; set; } = "rotateBlock";
+        public override ICSType baseType { get; set; } = new TypeBase();
+        public override string typeName { get; set; }
+    }
+
+    /*public class TypeRecipe : ICSRecipe
+    {
+        public string name { get; set; }
+
+        public List<RecipeItem> requires => new List<RecipeItem>();
+
+        public List<RecipeResult> results => new List<RecipeResult>();
+
+            public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
+
+            public bool isOptional { get; set; } = false;
+
+           public int defaultLimit { get; set; } = 0;
+
+        public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
+    }*/
+
+
+
+    [ModLoader.ModManager]
+    public class Type
+    {
+        public const string NAME = LocalGenerateConfig.NAME;
+        public const string GENERATE_TYPES_NAME = GenerateTypeConfig.GENERATE_TYPES_PREFIX + NAME;
+        public const string GENERATE_RECIPES_NAME = GenerateTypeConfig.GENERATE_RECIPES_PREFIX + NAME;
+
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterSelectedWorld, GENERATE_TYPES_NAME)]
+        public static void generateTypes()
+        {
+            //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " generation", LogType.Log));
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
             {
-                var currentType = GenerateTypeConfig.standardList.GetValue(i);
-                var typeName = GenerateTypeConfig.typePrefix + type + "." + currentType;
+                outputFile.WriteLine(NAME + " types:");
+            }
+            DecorLogger.LogToFile("Begining " + NAME + " generation");
+            JSONNode list = new JSONNode(NodeType.Array);
 
-                types.Add(typeName, new ItemTypeRaw(typeName, new JSONNode()
-                     .SetAs("categories", new JSONNode(NodeType.Array)
-                        .AddToArray(new JSONNode("nach0"))
-                        .AddToArray(new JSONNode("moredecorations"))
-                        .AddToArray(new JSONNode("decorblocks"))
-                        .AddToArray(new JSONNode("quarterblock"))
-                        .AddToArray(new JSONNode("a"))
-                        .AddToArray(new JSONNode("quarterblock"))
-                        .AddToArray(new JSONNode("a"))
-                        .AddToArray(new JSONNode("standard"))
-                        .AddToArray(new JSONNode(currentType))
-                     )
-                    .SetAs("icon", GenerateTypeConfig.iconPath + type + "/" + currentType + GenerateTypeConfig.iconFileType)
-                     .SetAs("maxStackSize", 200)
-                     .SetAs("isPlaceable", true)
-                     .SetAs("needsBase", false)
-                     .SetAs("isRotatable", true)
-                     .SetAs("sideall", currentType)
-                     .SetAs("rotatablex-", typeName + "x-")
-                     .SetAs("rotatablex+", typeName + "x+")
-                     .SetAs("rotatablez-", typeName + "z-")
-                     .SetAs("rotatablez+", typeName + "z+")));
+            if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
+                foreach (var currentType in blockTypes)
+                {
+                    //ServerLog.LogAsyncMessage(new LogMessage("Found parent " + currentType.type, LogType.Log));
+                    //ServerLog.LogAsyncMessage(new LogMessage("Found texture " + currentType.texture, LogType.Log));
+                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
 
-                types.Add(typeName + "x-", new ItemTypeRaw(typeName + "x-", new JSONNode()
-                     .SetAs("parentType", typeName)
-                     .SetAs("mesh", GenerateTypeConfig.meshPath + type + "x-" + GenerateTypeConfig.meshFileType)
-                     .SetAs("customData", new JSONNode()
-                        .SetAs("useNormalMap", true)
-                        .SetAs("useHeightMap", true))
-                     .SetAs("colliders", new JSONNode()
-                        .SetAs("boxes", new JSONNode(NodeType.Array)
-                            .AddToArray(new JSONNode()
-                                .SetAs("max", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode((object)0))
-                                    .AddToArray(new JSONNode((object)0))
-                                    .AddToArray(new JSONNode(0.5))
-                                )
-                                .SetAs("min", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode(-0.5))
-                                    .AddToArray(new JSONNode(-0.5))
-                                    .AddToArray(new JSONNode(-0.5))
-                                )
-                            )))));
+                    //ServerLog.LogAsyncMessage(new LogMessage("Generating type " + typeName, LogType.Log));
 
-                types.Add(typeName + "x+", new ItemTypeRaw(typeName + "x+", new JSONNode()
-                    .SetAs("parentType", typeName)
-                    .SetAs("mesh", GenerateTypeConfig.meshPath + type + "x+" + GenerateTypeConfig.meshFileType)
-                    .SetAs("customData", new JSONNode()
-                        .SetAs("useNormalMap", true)
-                        .SetAs("useHeightMap", true))
-                    .SetAs("colliders", new JSONNode()
-                        .SetAs("boxes", new JSONNode(NodeType.Array)
-                            .AddToArray(new JSONNode()
-                                .SetAs("max", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode(0.5))
-                                    .AddToArray(new JSONNode((object)0))
-                                    .AddToArray(new JSONNode(0.5))
-                                )
-                                .SetAs("min", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode((object)0))
-                                    .AddToArray(new JSONNode(-0.5))
-                                    .AddToArray(new JSONNode(-0.5))
-                                )
-                            )))));
+                    DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
 
-                types.Add(typeName + "z-", new ItemTypeRaw(typeName + "z-", new JSONNode()
-                    .SetAs("parentType", typeName)
-                    .SetAs("mesh", GenerateTypeConfig.meshPath + type + "z-" + GenerateTypeConfig.meshFileType)
-                    .SetAs("customData", new JSONNode()
-                        .SetAs("useNormalMap", true)
-                        .SetAs("useHeightMap", true))
-                   .SetAs("colliders", new JSONNode()
-                        .SetAs("boxes", new JSONNode(NodeType.Array)
-                            .AddToArray(new JSONNode()
-                                .SetAs("max", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode(0.5))
-                                    .AddToArray(new JSONNode((object)0))
-                                    .AddToArray(new JSONNode((object)0))
-                                )
-                                .SetAs("min", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode(-0.5))
-                                    .AddToArray(new JSONNode(-0.5))
-                                    .AddToArray(new JSONNode(-0.5))
-                                )
-                            )))));
+                    var Typesbase = new TypeSpecs();
+                    Typesbase.baseType.categories.Add(currentType.texture);
+                    Typesbase.typeName = typeName;
+                    Typesbase.baseType.sideall = currentType.texture;
+                    //Typesbase.baseType.onRemoveType = typeName;
+                    //Typesbase.baseType.onRemove.Add.typeName;
 
-                types.Add(typeName + "z+", new ItemTypeRaw(typeName + "z+", new JSONNode()
-                    .SetAs("parentType", typeName)
-                    .SetAs("mesh", GenerateTypeConfig.meshPath + type + "z+" + GenerateTypeConfig.meshFileType)
-                    .SetAs("customData", new JSONNode()
-                        .SetAs("useNormalMap", true)
-                        .SetAs("useHeightMap", true))
-                   .SetAs("colliders", new JSONNode()
-                        .SetAs("boxes", new JSONNode(NodeType.Array)
-                            .AddToArray(new JSONNode()
-                                .SetAs("max", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode(0.5))
-                                    .AddToArray(new JSONNode((object)0))
-                                    .AddToArray(new JSONNode(0.5))
-                                )
-                                .SetAs("min", new JSONNode(NodeType.Array)
-                                    .AddToArray(new JSONNode(-0.5))
-                                    .AddToArray(new JSONNode(-0.5))
-                                    .AddToArray(new JSONNode((object)0))
-                                )
-                            )))));
 
-                i++;
+                    list.AddToArray(Typesbase.JsonSerialize());
+                    DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
+                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                    {
+                        outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                    }
+
+                }
+            ItemTypesServer.BlockRotator.Patches.AddPatch(new ItemTypesServer.BlockRotator.BlockGeneratePatch(GenerateTypeConfig.MOD_FOLDER, -99999, list));
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+            {
+                outputFile.WriteLine("");
             }
         }
 
-        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterStartup, "Nach0.MoreDecorations.GenerateRecipes.quarterblocks")]
-        public static void RegisterRecipes()
+        [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterWorldLoad, GENERATE_RECIPES_NAME)]
+        public static void generateRecipes()
         {
-            var i = 0;
-            var type = "quarterblock";
-            var jobType = "QuarterBlock";
+            //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " recipe generation", LogType.Log));
+            
+            DecorLogger.LogToFile("Begining " + NAME + " recipe generation");
 
-            while (i < GenerateTypeConfig.standardList.Length)
-            {
-                var currentType = GenerateTypeConfig.standardList.GetValue(i);
-                var recipeName = GenerateTypeConfig.name + jobType + "Maker." + currentType;
-                var typeName = GenerateTypeConfig.typePrefix + type + "." + currentType;
+            if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(LocalGenerateConfig.NAME, out List<DecorType> blockTypes))
+                foreach (var currentType in blockTypes)
+                {
+                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
+                    var typeNameRecipe = typeName + ".Recipe";
 
-                List<JSONNode> recipes = new List<JSONNode>();
-                recipes.Add(new JSONNode()
-                    .SetAs("name", recipeName)
-                    .SetAs("defaultLimit", 0)
-                    .SetAs("requires", new JSONNode(NodeType.Array)
-                        .AddToArray(new JSONNode()
-                            .SetAs("amount", 1)
-                            .SetAs("type", currentType)
-                        )
-                    )
-                    .SetAs("results", new JSONNode(NodeType.Array)
-                        .AddToArray(new JSONNode()
-                            .SetAs("amount", 4)
-                            .SetAs("type", typeName)
-                        )
-                    )
-                );
+                    //ServerLog.LogAsyncMessage(new LogMessage("Generating recipe " + typeNameRecipe, LogType.Log));
+                    
+                    DecorLogger.LogToFile("Generating recipe " + typeNameRecipe);
 
-                Recipes.RecipeStorage.NPCRecipePatch patch = new Recipes.RecipeStorage.NPCRecipePatch(
-                    Recipes.RecipeStorage.ENPCRecipePatchType.AddOrReplace,
-                    18000,
-                    recipes,
-                    "Nach0.Jobs." + jobType + "Maker"
-                );
-                Recipes.RecipeStorage.QueueLimitsMapping("Nach0.Types." + jobType + "Maker", "Nach0.Jobs." + jobType + "Maker");
-                Recipes.RecipeStorage.QueueNPCRecipes(patch);
+                    var recipe = new TypeRecipeBase();
+                    recipe.name = typeNameRecipe;
+                    recipe.requires.Add(new RecipeItem(currentType.type));
+                    recipe.results.Add(new RecipeResult(typeName));
+                    recipe.Job = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
 
-                i++;
-            }
+
+                    var requirements = new List<InventoryItem>();
+                    var results = new List<RecipeResult>();
+                    recipe.JsonSerialize();
+                    DecorLogger.LogToFile("JSON - " + recipe.JsonSerialize().ToString());
+
+                    foreach (var ri in recipe.requires)
+                    {
+                        if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                        {
+                            requirements.Add(new InventoryItem(itemIndex, ri.amount));
+                        }
+                        else
+                        {
+                            DecorLogger.LogToFile("\"" + typeNameRecipe + "\" bad requirement \"" + ri.type + "\"");
+                        }
+                    }
+
+                    foreach (var ri in recipe.results)
+                        results.Add(ri);
+
+                    var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
+
+                    ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
+                    
+                }
         }
     }
 }
