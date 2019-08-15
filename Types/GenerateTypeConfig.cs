@@ -172,4 +172,25 @@ namespace Nach0.Decor
 
         public string Job { get; set; }
     }
+        [ChatCommandAutoLoader]
+        public class Command : IChatCommand
+        {
+            public bool TryDoCommand(Players.Player player, string chat, List<string> splits)
+            {
+            if (player == null)
+            {
+                return false;
+            }
+
+            if (!chat.StartsWith("?decoradd"))
+            {
+                return false;
+            }
+             if (!PermissionsManager.CheckAndWarnPermission(player, "Nach0.decoradd"))
+            {
+                return false;
+            }
+                return true;
+            }
+        }
 }
