@@ -21,8 +21,8 @@ namespace Nach0.Decor.GenerateTypes.InvertedRamp
     {
         public override List<string> categories { get; set; } = new List<string>()
         {
-            GenerateTypeConfig.NAME, GenerateTypeConfig.MODNAME, LocalGenerateConfig.PARENT_NAME, "d", LocalGenerateConfig.NAME, "b"
-        };
+            "decorative2", GenerateTypeConfig.NAME, LocalGenerateConfig.PARENT_NAME, LocalGenerateConfig.NAME
+         };
         public override Colliders colliders { get; set; } = new Colliders()
         {
             boxes = new List<Colliders.Boxes>()
@@ -59,22 +59,7 @@ namespace Nach0.Decor.GenerateTypes.InvertedRamp
         public override string typeName { get; set; }
     }
 
-    /*public class TypeRecipe : ICSRecipe
-    {
-        public string name { get; set; }
 
-        public List<RecipeItem> requires => new List<RecipeItem>();
-
-        public List<RecipeResult> results => new List<RecipeResult>();
-
-            public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
-
-            public bool isOptional { get; set; } = false;
-
-           public int defaultLimit { get; set; } = 0;
-
-        public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
-    }*/
 
 
 
@@ -88,42 +73,45 @@ namespace Nach0.Decor.GenerateTypes.InvertedRamp
         [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterSelectedWorld, GENERATE_TYPES_NAME)]
         public static void generateTypes()
         {
-            //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " generation", LogType.Log));
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+            if (GenerateTypeConfig.DecorConfigFileTrue)
             {
-                outputFile.WriteLine(NAME + " types:");
-            }
-            DecorLogger.LogToFile("Begining " + NAME + " generation");
-            JSONNode list = new JSONNode(NodeType.Array);
-
-            if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
-                foreach (var currentType in blockTypes)
+                //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " generation", LogType.Log));
+                using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
                 {
-                    //ServerLog.LogAsyncMessage(new LogMessage("Found parent " + currentType.type, LogType.Log));
-                    //ServerLog.LogAsyncMessage(new LogMessage("Found texture " + currentType.texture, LogType.Log));
-                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
-
-                    //ServerLog.LogAsyncMessage(new LogMessage("Generating type " + typeName, LogType.Log));
-
-                    DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
-
-                    var Typesbase = new TypeSpecs();
-                    Typesbase.baseType.categories.Add(currentType.texture);
-                    Typesbase.typeName = typeName;
-                    Typesbase.baseType.sideall = currentType.texture;
-
-                    list.AddToArray(Typesbase.JsonSerialize());
-                    DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
-                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
-                    {
-                        outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
-                    }
-
+                    outputFile.WriteLine(NAME + " types:");
                 }
-            ItemTypesServer.BlockRotator.Patches.AddPatch(new ItemTypesServer.BlockRotator.BlockGeneratePatch(GenerateTypeConfig.MOD_FOLDER, -99999, list));
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
-            {
-                outputFile.WriteLine("");
+                DecorLogger.LogToFile("Begining " + NAME + " generation");
+                JSONNode list = new JSONNode(NodeType.Array);
+
+                if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
+                    foreach (var currentType in blockTypes)
+                    {
+                        //ServerLog.LogAsyncMessage(new LogMessage("Found parent " + currentType.type, LogType.Log));
+                        //ServerLog.LogAsyncMessage(new LogMessage("Found texture " + currentType.texture, LogType.Log));
+                        var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
+
+                        //ServerLog.LogAsyncMessage(new LogMessage("Generating type " + typeName, LogType.Log));
+
+                        DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
+
+                        var Typesbase = new TypeSpecs();
+                        Typesbase.baseType.categories.Add(currentType.texture);
+                        Typesbase.typeName = typeName;
+                        Typesbase.baseType.sideall = currentType.texture;
+
+                        list.AddToArray(Typesbase.JsonSerialize());
+                        DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
+                        using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                        {
+                            outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                        }
+
+                    }
+                ItemTypesServer.BlockRotator.Patches.AddPatch(new ItemTypesServer.BlockRotator.BlockGeneratePatch(GenerateTypeConfig.MOD_FOLDER, -99999, list));
+                using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                {
+                    outputFile.WriteLine("");
+                }
             }
         }
 
@@ -148,7 +136,7 @@ namespace Nach0.Decor.GenerateTypes.InvertedRamp
                     recipe.name = typeNameRecipe;
                     recipe.requires.Add(new RecipeItem(currentType.type));
                     recipe.results.Add(new RecipeResult(typeName));
-                    recipe.Job = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
+                    recipe.Job = GenerateTypeConfig.DecorJobRecipe;
 
 
                     var requirements = new List<InventoryItem>();

@@ -1,6 +1,6 @@
 [
 	{
-		"name" : "NACH0.player.MakerMaker",
+		"name" : "NACH0.player.DecorMaker",
 		"requires" : [
 			{
 				"type": "planks",
@@ -9,7 +9,7 @@
 		],
 		"results" : [
 			{
-				"type":"NACH0.Types.MakerMaker"
+				"type":"NACH0.Types.DecorMaker"
 			}
 		]
 	}

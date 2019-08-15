@@ -22,8 +22,8 @@ namespace Nach0.Decor.GenerateTypes.Slab
     {
         public override List<string> categories { get; set; } = new List<string>()
         {
-            GenerateTypeConfig.NAME, GenerateTypeConfig.MODNAME, LocalGenerateConfig.PARENT_NAME, "a", LocalGenerateConfig.NAME, "b"        /*.SetAs("colors", "#ff0000->#ffffff")*/
-        };
+            "decorative2", GenerateTypeConfig.NAME, LocalGenerateConfig.PARENT_NAME, LocalGenerateConfig.NAME
+         };
 
         public override int? maxStackSize => 500;
         public override bool? isPlaceable => true;
@@ -64,22 +64,6 @@ namespace Nach0.Decor.GenerateTypes.Slab
 
     }
 
-    /*public class TypeRecipe : ICSRecipe
-    {
-        public string name { get; set; }
-
-        public List<RecipeItem> requires => new List<RecipeItem>();
-
-        public List<RecipeResult> results => new List<RecipeResult>();
-
-        public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
-
-        public bool isOptional { get; set; } = false;
-
-        public int defaultLimit { get; set; } = 0;
-
-        public string Job { get; set; } = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
-    }*/
 
 
 
@@ -93,55 +77,58 @@ namespace Nach0.Decor.GenerateTypes.Slab
         [ModLoader.ModCallback(ModLoader.EModCallbackType.AddItemTypes, GENERATE_TYPES_NAME)]
         public static void generateTypes(Dictionary<string, ItemTypeRaw> types)
         {
-            //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " type generation", LogType.Log));
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+            if (GenerateTypeConfig.DecorConfigFileTrue)
             {
-                outputFile.WriteLine(NAME + " types:");
-            }
-            DecorLogger.LogToFile("Begining " + NAME + " generation");
-
-            if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
-                foreach (var currentType in blockTypes)
+                //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " type generation", LogType.Log));
+                using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
                 {
-                    //ServerLog.LogAsyncMessage(new LogMessage("Found parent " + currentType.type, LogType.Log));
-                    //ServerLog.LogAsyncMessage(new LogMessage("Found texture " + currentType.texture, LogType.Log));
-                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
-                    var typeNameUp = typeName + ".up";
-                    var typeNameDown = typeName + ".down";
-
-                    //ServerLog.LogAsyncMessage(new LogMessage("Generating type " + typeName, LogType.Log));
-
-                    DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
-
-                    var baseType = new TypeParent();
-                    baseType.categories.Add(currentType.texture);
-                    baseType.name = typeName;
-                    baseType.sideall = currentType.texture;
-                    baseType.rotatablexn = typeNameUp;
-                    baseType.rotatablexp = typeNameUp;
-                    baseType.rotatablezn = typeNameDown;
-                    baseType.rotatablezp = typeNameDown;
-
-                    var typeUp = new TypeUp();
-                    typeUp.name = typeNameUp;
-                    typeUp.parentType = typeName;
-
-                    var typeDown = new TypeDown();
-                    typeDown.name = typeNameDown;
-                    typeDown.parentType = typeName;
-
-
-                    types.Add(typeName, new ItemTypeRaw(typeName, baseType.JsonSerialize()));
-                    types.Add(typeNameUp, new ItemTypeRaw(typeNameUp, typeUp.JsonSerialize()));
-                    types.Add(typeNameDown, new ItemTypeRaw(typeNameDown, typeDown.JsonSerialize()));
-                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
-                    {
-                        outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
-                    }
+                    outputFile.WriteLine(NAME + " types:");
                 }
-            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
-            {
-                outputFile.WriteLine("");
+                DecorLogger.LogToFile("Begining " + NAME + " generation");
+
+                if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
+                    foreach (var currentType in blockTypes)
+                    {
+                        //ServerLog.LogAsyncMessage(new LogMessage("Found parent " + currentType.type, LogType.Log));
+                        //ServerLog.LogAsyncMessage(new LogMessage("Found texture " + currentType.texture, LogType.Log));
+                        var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
+                        var typeNameUp = typeName + ".up";
+                        var typeNameDown = typeName + ".down";
+
+                        //ServerLog.LogAsyncMessage(new LogMessage("Generating type " + typeName, LogType.Log));
+
+                        DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
+
+                        var baseType = new TypeParent();
+                        baseType.categories.Add(currentType.texture);
+                        baseType.name = typeName;
+                        baseType.sideall = currentType.texture;
+                        baseType.rotatablexn = typeNameUp;
+                        baseType.rotatablexp = typeNameUp;
+                        baseType.rotatablezn = typeNameDown;
+                        baseType.rotatablezp = typeNameDown;
+
+                        var typeUp = new TypeUp();
+                        typeUp.name = typeNameUp;
+                        typeUp.parentType = typeName;
+
+                        var typeDown = new TypeDown();
+                        typeDown.name = typeNameDown;
+                        typeDown.parentType = typeName;
+
+
+                        types.Add(typeName, new ItemTypeRaw(typeName, baseType.JsonSerialize()));
+                        types.Add(typeNameUp, new ItemTypeRaw(typeNameUp, typeUp.JsonSerialize()));
+                        types.Add(typeNameDown, new ItemTypeRaw(typeNameDown, typeDown.JsonSerialize()));
+                        using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                        {
+                            outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                        }
+                    }
+                using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                {
+                    outputFile.WriteLine("");
+                }
             }
         }
 
@@ -166,7 +153,7 @@ namespace Nach0.Decor.GenerateTypes.Slab
                     recipe.name = typeNameRecipe;
                     recipe.requires.Add(new RecipeItem(currentType.type));
                     recipe.results.Add(new RecipeResult(typeName));
-                    recipe.Job = GenerateTypeConfig.NAME + ".Jobs." + LocalGenerateConfig.NAME + "Maker";
+                    recipe.Job = GenerateTypeConfig.DecorJobRecipe;
 
 
                     var requirements = new List<InventoryItem>();

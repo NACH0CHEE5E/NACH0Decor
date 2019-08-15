@@ -1,7 +1,7 @@
 [
   {
     "name": "NACH0.Decor",
-    "version": "3.0.2",
+    "version": "3.1.0",
     "namepretty": "NACH0 Decor",
     "enabled": true,
     "marksgamemodded": true,
@@ -38,207 +38,41 @@
         "fileType": "addOrReplaceNPCRecipes",
         "index": 18000,
         "limitsUIMapping": [
-          "NACH0.Types.MakerMaker"
+          "NACH0.Types.DecorMaker"
         ],
-        "npcType": "NACH0.Jobs.MakerMaker",
-        "relativePath": "gamedata/recipes/NACH0.Jobs.MakerMaker.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.InvertedRampCornerInvertedMaker"
-        ],
-        "npcType": "NACH0.Jobs.InvertedRampCornerInvertedMaker",
+        "npcType": "NACH0.Jobs.DecorMaker",
         "relativePath": "gamedata/recipes/Dummy.json"
       },
       {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.InvertedRampCornerMaker"
-        ],
-        "npcType": "NACH0.Jobs.InvertedRampCornerMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.InvertedRampMaker"
-        ],
-        "npcType": "NACH0.Jobs.InvertedRampMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.InvertedStairsCornerInvertedMaker"
-        ],
-        "npcType": "NACH0.Jobs.InvertedStairsCornerInvertedMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.InvertedStairsCornerMaker"
-        ],
-        "npcType": "NACH0.Jobs.InvertedStairsCornerMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.InvertedStairsMaker"
-        ],
-        "npcType": "NACH0.Jobs.InvertedStairsMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.RampCornerInvertedMaker"
-        ],
-        "npcType": "NACH0.Jobs.RampCornerInvertedMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.RampCornerMaker"
-        ],
-        "npcType": "NACH0.Jobs.RampCornerMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.RampMaker"
-        ],
-        "npcType": "NACH0.Jobs.RampMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.SlabMaker"
-        ],
-        "npcType": "NACH0.Jobs.SlabMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.StairsCornerInvertedMaker"
-        ],
-        "npcType": "NACH0.Jobs.StairsCornerInvertedMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.StairsCornerMaker"
-        ],
-        "npcType": "NACH0.Jobs.StairsCornerMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.StairsMaker"
-        ],
-        "npcType": "NACH0.Jobs.StairsMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.VerticalSlabMaker"
-        ],
-        "npcType": "NACH0.Jobs.VerticalSlabMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.QuarterBlockMaker"
-        ],
-        "npcType": "NACH0.Jobs.QuarterBlockMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.RaisedQuarterBlockMaker"
-        ],
-        "npcType": "NACH0.Jobs.RaisedQuarterBlockMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.EdgeBlockMaker"
-        ],
-        "npcType": "NACH0.Jobs.EdgeBlockMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.RaisedEdgeBlockMaker"
-        ],
-        "npcType": "NACH0.Jobs.RaisedEdgeBlockMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.CornerBlockMaker"
-        ],
-        "npcType": "NACH0.Jobs.CornerBlockMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-      {
-        "fileType": "addOrReplaceNPCRecipes",
-        "index": 18000,
-        "limitsUIMapping": [
-          "NACH0.Types.RaisedCornerBlockMaker"
-        ],
-        "npcType": "NACH0.Jobs.RaisedCornerBlockMaker",
-        "relativePath": "gamedata/recipes/Dummy.json"
-      },
-	  {
-				"relativePath" : "gamedata/locale/en-US.json",
-				"fileType" : "addOrOverrideLocalization",
-				"index" : 18000
-			}
+        "relativePath": "gamedata/locale/en-US.json",
+        "fileType": "addOrOverrideLocalization",
+        "index": 18000
+      }
     ],
     "patchnotes": [
-		{
-			"version": "3.0.2",
-			"notes": [
-				"the blocks that get generated now use height maps",
-				"maker maker no longer makes infinite makers",
-				"maker locale added",
-				"fixed Raised Quarter blocks making a typelist file in the mod directory"
-			]
-		},
+      {
+        "version": "3.1.0",
+        "notes": [
+			"*This is a testing release, it may not be that viable with saves that have a large amount of decor types",
+          "Recipes are now in one job",
+		  "MakerMaker and other decor maker blocks made into a single DecorMaker job where all the decor blocks are crafted",
+		  "category Changes",
+		  "Texture added for the decor maker",
+		  "icon added for the decor maker",
+		  "made failsafe better",
+		  "fixed a issue where there would be alot of exceptions on a new world creation",
+		  "file will now be copied over when a new world is created"
+        ]
+      },
+      {
+        "version": "3.0.2",
+        "notes": [
+          "the blocks that get generated now use height maps",
+          "maker maker no longer makes infinite makers",
+          "maker locale added",
+          "fixed Raised Quarter blocks making a typelist file in the mod directory"
+        ]
+      },
       {
         "version": "3.0.1",
         "notes": [
