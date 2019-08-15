@@ -67,7 +67,7 @@ namespace Nach0.Decor
             //DecorTypes = JsonConvert.DeserializeObject<Dictionary<string, List<DecorType>>>(file);
 
 
-            
+
         }
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterSelectedWorld, MODNAMESPACE + ".AfterSelectedWorld")]
@@ -104,97 +104,7 @@ namespace Nach0.Decor
                 outputFile.WriteLine("");
             }
         }
-            /*private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-            {
-                ServerLog.LogAsyncMessage(new LogMessage(args.Name, UnityEngine.LogType.Log));
-                try
-                {
-
-                    if (args.Name.Contains("Newtonsoft.Json"))
-                        return Assembly.LoadFile(MOD_FOLDER + "Newtonsoft.Json.dll");
-
-                    if (args.Name.Contains("System.Numerics"))
-                        return Assembly.LoadFile(MOD_FOLDER + "System.Numerics.dll");
-
-                    if (args.Name.Contains("System.Data"))
-                        return Assembly.LoadFile(MOD_FOLDER + "System.Data.dll");
-
-                    if (args.Name.Contains("System.Runtime.Serialization"))
-                        return Assembly.LoadFile(MOD_FOLDER + "System.Runtime.Serialization.dll");
-                }
-                catch (Exception ex)
-                {
-                    ServerLog.LogAsyncMessage(new LogMessage(ex.Message, UnityEngine.LogType.Exception));
-                }
-
-                return null;
-            }*/
     }
-    /*[ChatCommandAutoLoader]
-    public class EditDecorCommand : IChatCommand
-    {
-        public bool TryDoCommand(Players.Player player, string chat, List<string> splits)
-        {
-            if (player == null)
-                return false;
-
-            if (!chat.Equals("?decor editfile"))
-                return false;
-
-            var FILE_TO_EDIT = GenerateTypeConfig.GAME_SAVES + ServerManager.WorldName + "/" + GenerateTypeConfig.FILE_NAME;
-            if (File.Exists(FILE_TO_EDIT))
-            {
-                File.OpenWrite(FILE_TO_EDIT);
-                return true;
-            }
-
-            return false;
-        }
-    }*/
-
-    /*public static class ExtentionMethods
-    {
-        public static JSONNode JsonSerialize<T>(this T obj)
-        {
-            var objStr = JsonConvert.SerializeObject(obj, Formatting.None, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-            //ServerLog.LogAsyncMessage(new LogMessage(objStr, UnityEngine.LogType.Log));
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(GenerateTypeConfig.MOD_FOLDER, "Log.txt"), true))
-            {
-                outputFile.WriteLine("JSON - " + objStr);
-                outputFile.WriteLine("");
-            }
-            var json = JSON.DeserializeString(objStr);
-
-            if (obj is ICSType csType)
-                json.SetAs("customData", csType.customData);
-
-            return json;
-        }
-
-        public static T JsonDeerialize<T>(this JSONNode node)
-        {
-            return JsonConvert.DeserializeObject<T>(node.ToString(), new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-        }
-
-        public static void LoadRecipe(this ICSRecipe recipe)
-        {
-            var requirements = new List<InventoryItem>();
-            var results = new List<Recipes.RecipeResult>();
-            recipe.JsonSerialize();
-
-            foreach (var ri in recipe.requires)
-                if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
-                    requirements.Add(new InventoryItem(itemIndex, ri.amount));
-
-            foreach (var ri in recipe.results)
-                if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
-                    results.Add(new Recipes.RecipeResult(itemIndex, ri.amount));
-
-            var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
-
-                ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
-        }
-    }*/
     public class TypeRecipeBase : ICSRecipe
     {
         public string name { get; set; }
@@ -211,4 +121,25 @@ namespace Nach0.Decor
 
         public string Job { get; set; }
     }
+        [ChatCommandAutoLoader]
+        public class Command : IChatCommand
+        {
+            public bool TryDoCommand(Players.Player player, string chat, List<string> splits)
+            {
+            if (player == null)
+            {
+                return false;
+            }
+
+            if (!chat.StartsWith("?decoradd"))
+            {
+                return false;
+            }
+             if (!PermissionsManager.CheckAndWarnPermission(player, "Nach0.decoradd"))
+            {
+                return false;
+            }
+                return true;
+            }
+        }
 }
