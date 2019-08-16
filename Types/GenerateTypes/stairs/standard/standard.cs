@@ -26,13 +26,7 @@ namespace Nach0.Decor.GenerateTypes.Stairs
         };
         public override Colliders colliders { get; set; } = new Colliders()
         {
-            boxes = new List<Colliders.Boxes>()
-                {
-                    new Colliders.Boxes(new List<float>(){ 0.5f, -0.25f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f }),
-                    new Colliders.Boxes(new List<float>(){ 0.5f, 0f, 0.5f }, new List<float>(){ -0.25f, -0.25f, -0.5f }),
-                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.25f, 0.5f }, new List<float>(){ 0f, 0f, -0.5f }),
-                    new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, 0.5f }, new List<float>(){ 0.25f, 0.25f, -0.5f })
-                },
+            boxes = typeColliders.Stairs,
             collidePlayer = true,
             collideSelection = true
         };
@@ -77,27 +71,55 @@ namespace Nach0.Decor.GenerateTypes.Stairs
                 DecorLogger.LogToFile("Begining " + NAME + " generation");
                 JSONNode list = new JSONNode(NodeType.Array);
 
-                if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
-                    foreach (var currentType in blockTypes)
+                if (GenerateTypeConfig.DecorConfigFileTrue)
+                {
+                    if (GenerateTypeConfig.DecorTypes.TryGetValue("_ALL", out List<DecorType> allBlockTypes))
                     {
-                        var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
-
-
-                        DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
-
-                        var Typesbase = new TypeSpecs();
-                        Typesbase.baseType.categories.Add(currentType.texture);
-                        Typesbase.typeName = typeName;
-                        Typesbase.baseType.sideall = currentType.texture;
-
-                        list.AddToArray(Typesbase.JsonSerialize());
-                        DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
-                        using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                        foreach (var currentType in allBlockTypes)
                         {
-                            outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
-                        }
+                            var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
 
+                            DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
+
+                            var Typesbase = new TypeSpecs();
+                            Typesbase.baseType.categories.Add(currentType.texture);
+                            Typesbase.typeName = typeName;
+                            Typesbase.baseType.sideall = currentType.texture;
+
+                            list.AddToArray(Typesbase.JsonSerialize());
+                            DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
+                            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                            {
+                                outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                            }
+
+                        }
                     }
+
+                    if (GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
+                    {
+                        foreach (var currentType in blockTypes)
+                        {
+                            var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
+
+
+                            DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
+
+                            var Typesbase = new TypeSpecs();
+                            Typesbase.baseType.categories.Add(currentType.texture);
+                            Typesbase.typeName = typeName;
+                            Typesbase.baseType.sideall = currentType.texture;
+
+                            list.AddToArray(Typesbase.JsonSerialize());
+                            DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
+                            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                            {
+                                outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                            }
+
+                        }
+                    }
+                }
                 ItemTypesServer.BlockRotator.Patches.AddPatch(new ItemTypesServer.BlockRotator.BlockGeneratePatch(GenerateTypeConfig.MOD_FOLDER, -99999, list));
                 using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
                 {
@@ -113,45 +135,91 @@ namespace Nach0.Decor.GenerateTypes.Stairs
             
             DecorLogger.LogToFile("Begining " + NAME + " recipe generation");
 
-            if (GenerateTypeConfig.DecorConfigFileTrue && GenerateTypeConfig.DecorTypes.TryGetValue(LocalGenerateConfig.NAME, out List<DecorType> blockTypes))
-                foreach (var currentType in blockTypes)
+            if (GenerateTypeConfig.DecorConfigFileTrue)
+            {
+                if (GenerateTypeConfig.DecorTypes.TryGetValue("_ALL", out List<DecorType> allBlockTypes))
                 {
-                    var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
-                    var typeNameRecipe = typeName + ".Recipe";
-
-                    
-                    DecorLogger.LogToFile("Generating recipe " + typeNameRecipe);
-
-                    var recipe = new TypeRecipeBase();
-                    recipe.name = typeNameRecipe;
-                    recipe.requires.Add(new RecipeItem(currentType.type));
-                    recipe.results.Add(new RecipeResult(typeName));
-                    recipe.Job = GenerateTypeConfig.DecorJobRecipe;
-
-
-                    var requirements = new List<InventoryItem>();
-                    var results = new List<RecipeResult>();
-                    recipe.JsonSerialize();
-                    DecorLogger.LogToFile("JSON - " + recipe.JsonSerialize().ToString());
-
-                    foreach (var ri in recipe.requires)
+                    foreach (var currentType in allBlockTypes)
                     {
-                        if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                        var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
+                        var typeNameRecipe = typeName + ".Recipe";
+
+
+                        DecorLogger.LogToFile("Generating recipe " + typeNameRecipe);
+
+                        var recipe = new TypeRecipeBase();
+                        recipe.name = typeNameRecipe;
+                        recipe.requires.Add(new RecipeItem(currentType.type));
+                        recipe.results.Add(new RecipeResult(typeName));
+                        recipe.Job = GenerateTypeConfig.DecorJobRecipe;
+
+
+                        var requirements = new List<InventoryItem>();
+                        var results = new List<RecipeResult>();
+                        recipe.JsonSerialize();
+                        DecorLogger.LogToFile("JSON - " + recipe.JsonSerialize().ToString());
+
+                        foreach (var ri in recipe.requires)
                         {
-                            requirements.Add(new InventoryItem(itemIndex, ri.amount));
+                            if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                            {
+                                requirements.Add(new InventoryItem(itemIndex, ri.amount));
+                            }
+                            else
+                            {
+                                DecorLogger.LogToFile("\"" + typeNameRecipe + "\" bad requirement \"" + ri.type + "\"");
+                            }
                         }
-                        else
-                        {
-                            DecorLogger.LogToFile("\"" + typeNameRecipe + "\" bad requirement \"" + ri.type + "\"");
-                        }
+                        foreach (var ri in recipe.results)
+                            results.Add(ri);
+
+                        var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
+
+                        ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
                     }
-                    foreach (var ri in recipe.results)
-                        results.Add(ri);
-
-                    var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
-
-                    ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
                 }
-        }
+                if (GenerateTypeConfig.DecorTypes.TryGetValue(NAME, out List<DecorType> blockTypes))
+                {
+                    foreach (var currentType in blockTypes)
+                    {
+                        var typeName = GenerateTypeConfig.TYPEPREFIX + NAME + "." + currentType.name;
+                        var typeNameRecipe = typeName + ".Recipe";
+
+
+                        DecorLogger.LogToFile("Generating recipe " + typeNameRecipe);
+
+                        var recipe = new TypeRecipeBase();
+                        recipe.name = typeNameRecipe;
+                        recipe.requires.Add(new RecipeItem(currentType.type));
+                        recipe.results.Add(new RecipeResult(typeName));
+                        recipe.Job = GenerateTypeConfig.DecorJobRecipe;
+
+
+                        var requirements = new List<InventoryItem>();
+                        var results = new List<RecipeResult>();
+                        recipe.JsonSerialize();
+                        DecorLogger.LogToFile("JSON - " + recipe.JsonSerialize().ToString());
+
+                        foreach (var ri in recipe.requires)
+                        {
+                            if (ItemTypes.IndexLookup.TryGetIndex(ri.type, out var itemIndex))
+                            {
+                                requirements.Add(new InventoryItem(itemIndex, ri.amount));
+                            }
+                            else
+                            {
+                                DecorLogger.LogToFile("\"" + typeNameRecipe + "\" bad requirement \"" + ri.type + "\"");
+                            }
+                        }
+                        foreach (var ri in recipe.results)
+                            results.Add(ri);
+
+                        var newRecipe = new Recipe(recipe.name, requirements, results, recipe.defaultLimit, 0, (int)recipe.defaultPriority);
+
+                        ServerManager.RecipeStorage.AddLimitTypeRecipe(recipe.Job, newRecipe);
+                    }
+                }
+            }
+            }
     }
 }

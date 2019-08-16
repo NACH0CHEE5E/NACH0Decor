@@ -88,29 +88,13 @@
   <ItemGroup>
     <Compile Include="Logger.cs" />
     <Compile Include="Models\DecorTypes.cs" />
+    <Compile Include="Types\ColliderStorage.cs" />
+    <Compile Include="Types\GenerateTyeMethod.cs" />
     <Compile Include="Types\GenerateTypeConfig.cs" />
-    <Compile Include="Types\GenerateTypes\quarterblocks\corner\raised.cs" />
-    <Compile Include="Types\GenerateTypes\quarterblocks\corner\standard.cs" />
-    <Compile Include="Types\GenerateTypes\quarterblocks\edge\raised.cs" />
-    <Compile Include="Types\GenerateTypes\quarterblocks\edge\standard.cs" />
-    <Compile Include="Types\GenerateTypes\quarterblocks\standard\raised.cs" />
-    <Compile Include="Types\GenerateTypes\quarterblocks\standard\standard.cs" />
-    <Compile Include="Types\GenerateTypes\ramps\flipped\corner.cs" />
-    <Compile Include="Types\GenerateTypes\ramps\flipped\cornerinverted.cs" />
-    <Compile Include="Types\GenerateTypes\ramps\flipped\standard.cs" />
-    <Compile Include="Types\GenerateTypes\ramps\standard\corner.cs" />
-    <Compile Include="Types\GenerateTypes\ramps\standard\cornerinverted.cs" />
-    <Compile Include="Types\GenerateTypes\ramps\standard\standard.cs" />
-    <Compile Include="Types\GenerateTypes\slabs\standard.cs" />
-    <Compile Include="Types\GenerateTypes\slabs\Vertical.cs" />
-    <Compile Include="Types\GenerateTypes\stairs\flipped\corner.cs" />
-    <Compile Include="Types\GenerateTypes\stairs\flipped\cornerinverted.cs" />
-    <Compile Include="Types\GenerateTypes\stairs\flipped\standard.cs" />
-    <Compile Include="Types\GenerateTypes\stairs\standard\cornerinverted.cs" />
-    <Compile Include="Types\GenerateTypes\stairs\standard\corner.cs" />
-    <Compile Include="Types\GenerateTypes\stairs\standard\Standard.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Types\GenerateTypes\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

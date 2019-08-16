@@ -156,41 +156,22 @@ namespace Nach0.Decor
             }
         }
     }
-    public class TypeRecipeBase : ICSRecipe
+    [ChatCommandAutoLoader]
+    public class Command : IChatCommand
     {
-        public string name { get; set; }
-
-        public List<RecipeItem> requires { get; set; } = new List<RecipeItem>();
-
-        public List<RecipeResult> results { get; set; } = new List<RecipeResult>();
-
-        public CraftPriority defaultPriority { get; set; } = CraftPriority.Medium;
-
-        public bool isOptional { get; set; } = false;
-
-        public int defaultLimit { get; set; } = 0;
-
-        public string Job { get; set; }
-    }
-        [ChatCommandAutoLoader]
-        public class Command : IChatCommand
+        public bool TryDoCommand(Players.Player player, string chat, List<string> splits)
         {
-            public bool TryDoCommand(Players.Player player, string chat, List<string> splits)
-            {
             if (player == null)
             {
                 return false;
             }
-
             if (!chat.StartsWith("?decoradd"))
             {
                 return false;
             }
-             if (!PermissionsManager.CheckAndWarnPermission(player, "Nach0.decoradd"))
-            {
-                return false;
-            }
-                return true;
-            }
+
+
+            return true;
         }
+    }
 }
