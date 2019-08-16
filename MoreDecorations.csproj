@@ -91,10 +91,9 @@
     <Compile Include="Types\ColliderStorage.cs" />
     <Compile Include="Types\GenerateTyeMethod.cs" />
     <Compile Include="Types\GenerateTypeConfig.cs" />
+    <Compile Include="Types\GenerateTypes\slabs\standard.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Types\GenerateTypes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

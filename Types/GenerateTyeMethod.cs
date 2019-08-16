@@ -66,11 +66,7 @@ namespace Nach0.Decor
 
     public class generateDecorTypes
     {
-        public static void addTypes(string name, List<Colliders.Boxes> colliders, string parentType)
-        {
-            generateTypes(name, colliders, parentType);
-        }
-        public static void generateTypes(string name, List<Colliders.Boxes> colliders, string parentType)
+        public static void generateTypes(string name, List<Colliders.Boxes> colliders)
         {
 
             //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " generation", LogType.Log));
@@ -83,12 +79,18 @@ namespace Nach0.Decor
 
             List<string> typesAdded = new List<string>();
             List<string> categories = categoryBase.categories;
-            categories.Add(parentType);
             categories.Add(name);
             var Typesbase = new DecorTypeSpecs();
             Typesbase.baseType.colliders.boxes = colliders;
             Typesbase.baseType.mesh = GenerateTypeConfig.MOD_MESH_PATH + name + GenerateTypeConfig.MESHTYPE;
-            Typesbase.baseType.icon = GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE;
+            if (!File.Exists(GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE))
+            {
+                Typesbase.baseType.icon = GenerateTypeConfig.MOD_ICON_PATH + "_NoIcon" + GenerateTypeConfig.ICONTYPE;
+            }
+            else
+            {
+                Typesbase.baseType.icon = GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE;
+            }
 
             if (GenerateTypeConfig.DecorTypes.TryGetValue("_ALL", out List<DecorType> allBlockTypes))
             {
@@ -100,7 +102,7 @@ namespace Nach0.Decor
 
                         DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
 
-
+                        //Typesbase.baseType.categories.Clear();
                         Typesbase.typeName = typeName;
                         Typesbase.baseType.categories = categories;
                         Typesbase.baseType.categories.Add(currentType.texture);
@@ -109,12 +111,13 @@ namespace Nach0.Decor
                         list.AddToArray(Typesbase.JsonSerialize());
                         typesAdded.Add(typeName);
 
+
                         DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
                         using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
                         {
                             outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
                         }
-                        Typesbase.baseType.categories.Clear();
+                        //Typesbase.baseType.categories.Clear();
                     }
                     else
                     {
@@ -135,6 +138,7 @@ namespace Nach0.Decor
                             DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
 
 
+                            //Typesbase.baseType.categories.Clear();
                             Typesbase.typeName = typeName;
                             Typesbase.baseType.categories = categories;
                             Typesbase.baseType.categories.Add(currentType.texture);
@@ -148,7 +152,7 @@ namespace Nach0.Decor
                             {
                                 outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
                             }
-                            Typesbase.baseType.categories.Clear();
+                            //Typesbase.baseType.categories.Clear();
                         }
                         else
                         {
@@ -261,16 +265,31 @@ namespace Nach0.Decor
     [ModLoader.ModManager]
     public class callGenerateMethod
     {
-        static List<string> Types = new List<string>()
+        static List<string> IlligalTypes = new List<string>()
         {
-            "Stairs"
+            "Slab.down",
+            "Slab.up"
         };
         [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterSelectedWorld, GenerateTypeConfig.MODNAMESPACE + "GenerateTypes")]
         public static void generateTypes()
         {
             if (GenerateTypeConfig.DecorConfigFileTrue)
             {
-                generateDecorTypes.generateTypes(Types[0], typeColliders.Stairs, Types[0]);
+                foreach (string type in IlligalTypes)
+                {
+                    GenerateTypeConfig.TypeList.Remove(type);
+                };
+                foreach (string type in GenerateTypeConfig.TypeList)
+                {
+                    if (!typeColliders.Colliders_Dict.ContainsKey(type))
+                    {
+                        generateDecorTypes.generateTypes(type, typeColliders.Generic);
+                    }
+                    else
+                    {
+                        generateDecorTypes.generateTypes(type, typeColliders.Colliders_Dict[type]);
+                    }
+                }
             }
         }
 
@@ -279,7 +298,10 @@ namespace Nach0.Decor
         {
             if (GenerateTypeConfig.DecorConfigFileTrue)
             {
-                generateDecorTypes.generateRecipes(Types[0]);
+                foreach (string type in GenerateTypeConfig.TypeList)
+                {
+                    generateDecorTypes.generateRecipes(type);
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 [
   {
     "name": "NACH0.Decor",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "namepretty": "NACH0 Decor",
     "enabled": true,
     "marksgamemodded": true,
@@ -50,18 +50,26 @@
       }
     ],
     "patchnotes": [
+	{
+		"version": "3.2.0",
+		"notes": [
+			"cleaned stuff up to make it easier to add new decor types",
+			"added _all to the decor types file which will generate that type for all the decor types",
+			"added the ability to put your own meshes in the mesh folder and for them to be added into the game"
+		]
+	},
       {
         "version": "3.1.0",
         "notes": [
-			"*This is a testing release, it may not be that viable with saves that have a large amount of decor types",
+          "*This is a testing release, it may not be that viable with saves that have a large amount of decor types",
           "Recipes are now in one job",
-		  "MakerMaker and other decor maker blocks made into a single DecorMaker job where all the decor blocks are crafted",
-		  "category Changes",
-		  "Texture added for the decor maker",
-		  "icon added for the decor maker",
-		  "made failsafe better",
-		  "fixed a issue where there would be alot of exceptions on a new world creation",
-		  "file will now be copied over when a new world is created"
+          "MakerMaker and other decor maker blocks made into a single DecorMaker job where all the decor blocks are crafted",
+          "category Changes",
+          "Texture added for the decor maker",
+          "icon added for the decor maker",
+          "made failsafe better",
+          "fixed a issue where there would be alot of exceptions on a new world creation",
+          "file will now be copied over when a new world is created"
         ]
       },
       {

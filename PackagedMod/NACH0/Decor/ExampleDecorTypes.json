@@ -1,6 +1,6 @@
 {
-    "Slab": [
-        {
+	"_ALL": [
+		{
 			"name": "Bricks",
             "type": "bricks",
             "texture": "bricks"
@@ -10,243 +10,57 @@
             "type": "stonebricks",
             "texture": "stonebricks"
         }
+	],
+	
+	
+    "Slab": [
     ],
     "VerticalSlab": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	
 	
 	"Stairs": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"StairsCorner": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"StairsCornerInverted": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	
 	"InvertedStairs": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"InvertedStairsCorner": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"InvertedStairsCornerInverted": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	
 	
 	"Ramp": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"RampCorner": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"RampCornerInverted": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	
 	"InvertedRamp": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"InvertedRampCorner": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"InvertedRampCornerInverted": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	
 	
 	"QuarterBlock": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"RaisedQuarterBlock": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	
 	"EdgeBlock": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"RaisedEdgeBlock": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	
 	"CornerBlock": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ],
 	"RaisedCornerBlock": [
-        {
-			"name": "Bricks",
-            "type": "bricks",
-            "texture": "bricks"
-        },
-        {
-			"name": "StoneBricks",
-            "type": "stonebricks",
-            "texture": "stonebricks"
-        }
     ]
 }

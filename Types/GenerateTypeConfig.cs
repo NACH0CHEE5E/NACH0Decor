@@ -49,6 +49,8 @@ namespace Nach0.Decor
         public static string EXAMPLE_FILE = "";
         public static string NEW_FILE = "";
         public static Dictionary<string, List<DecorType>> DecorTypes { get; private set; }
+        public static List<string> TypeList = new List<string>();
+
 
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.OnAssemblyLoaded, MODNAMESPACE + ".OnAssemblyLoaded")]
@@ -70,14 +72,30 @@ namespace Nach0.Decor
             DecorLogger.LogToFile("Game Gamedata Directory: " + GAMEDATA_FOLDER);
             DecorLogger.LogToFile("Game Savegame Directory: " + GAME_SAVES);
 
-
-
-
+            
+            //DecorLogger.LogToFile("Types in TypeList" + TypeList);
         }
 
         [ModLoader.ModCallback(ModLoader.EModCallbackType.AfterSelectedWorld, MODNAMESPACE + ".AfterSelectedWorld")]
         public static void AfterSelectedWorld()
         {
+            string[] files = Directory.GetFiles(MOD_MESH_PATH);
+            //DecorLogger.LogToFile("Files in Mod Mesh Directory" + files);
+
+
+            foreach (string file in files)
+            {
+                if (file.EndsWith(MESHTYPE))
+                {
+                    var type = file.Replace(MESHTYPE, "");
+                    type = type.Replace(MOD_MESH_PATH, "");
+                    TypeList.Add(type);
+                    DecorLogger.LogToFile("Adding Type: \"" + type + "\" to typeList");
+                }
+                
+            }
+
+
             GAME_SAVEFILE = GAME_SAVES + ServerManager.WorldName + "/";
             EXAMPLE_FILE = MOD_FOLDER + EXAMPLE_FILE_NAME;
             NEW_FILE = GAME_SAVEFILE + FILE_NAME;
