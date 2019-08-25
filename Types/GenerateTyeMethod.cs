@@ -63,70 +63,69 @@ namespace Nach0.Decor
         public override ICSType baseType { get; set; } = new DecorTypeBase();
         public override string typeName { get; set; }
     }
-
     public class generateDecorTypes
     {
         public static void generateTypes(string name, List<Colliders.Boxes> colliders)
         {
 
-            //ServerLog.LogAsyncMessage(new LogMessage("Begining " + NAME + " generation", LogType.Log));
+
             using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
             {
                 outputFile.WriteLine(name + " types:");
             }
             DecorLogger.LogToFile("Begining " + name + " generation");
-            JSONNode list = new JSONNode(NodeType.Array);
+
 
             List<string> typesAdded = new List<string>();
-            List<string> categories = categoryBase.categories;
+            List<string> categories = new List<string>(categoryBase.categories);
             categories.Add(name);
-            var Typesbase = new DecorTypeSpecs();
-            Typesbase.baseType.colliders.boxes = colliders;
-            Typesbase.baseType.mesh = GenerateTypeConfig.MOD_MESH_PATH + name + GenerateTypeConfig.MESHTYPE;
-            if (!File.Exists(GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE))
+            if (name != "Slab")
             {
-                Typesbase.baseType.icon = GenerateTypeConfig.MOD_ICON_PATH + "_NoIcon" + GenerateTypeConfig.ICONTYPE;
-            }
-            else
-            {
-                Typesbase.baseType.icon = GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE;
-            }
-
-            if (GenerateTypeConfig.DecorTypes.TryGetValue("_ALL", out List<DecorType> allBlockTypes))
-            {
-                foreach (var currentType in allBlockTypes)
+                JSONNode list = new JSONNode(NodeType.Array);
+                var Typesbase = new DecorTypeSpecs();
+                Typesbase.baseType.colliders.boxes = colliders;
+                Typesbase.baseType.mesh = GenerateTypeConfig.MOD_MESH_PATH + name + GenerateTypeConfig.MESHTYPE;
+                if (!File.Exists(GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE))
                 {
-                    var typeName = GenerateTypeConfig.TYPEPREFIX + name + "." + currentType.name;
-                    if (!typesAdded.Contains(typeName))
-                    {
-
-                        DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
-
-                        //Typesbase.baseType.categories.Clear();
-                        Typesbase.typeName = typeName;
-                        Typesbase.baseType.categories = categories;
-                        Typesbase.baseType.categories.Add(currentType.texture);
-                        Typesbase.baseType.sideall = currentType.texture;
-
-                        list.AddToArray(Typesbase.JsonSerialize());
-                        typesAdded.Add(typeName);
-
-
-                        DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
-                        using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
-                        {
-                            outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
-                        }
-                        //Typesbase.baseType.categories.Clear();
-                    }
-                    else
-                    {
-                        DecorLogger.LogToFile("Type with \"name\": \"" + currentType.name + "\" already exists for \"" + name + "\" check decor file for duplicates, type skipped");
-                    }
-
+                    Typesbase.baseType.icon = GenerateTypeConfig.MOD_ICON_PATH + "_NoIcon" + GenerateTypeConfig.ICONTYPE;
+                }
+                else
+                {
+                    Typesbase.baseType.icon = GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE;
                 }
 
+                if (GenerateTypeConfig.DecorTypes.TryGetValue("_ALL", out List<DecorType> allBlockTypes))
+                {
+                    foreach (var currentType in allBlockTypes)
+                    {
+                        var typeName = GenerateTypeConfig.TYPEPREFIX + name + "." + currentType.name;
+                        if (!typesAdded.Contains(typeName))
+                        {
 
+                            DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
+
+                            Typesbase.typeName = typeName;
+                            Typesbase.baseType.categories = new List<string>(categories);
+                            Typesbase.baseType.categories.Add(currentType.texture);
+                            Typesbase.baseType.sideall = currentType.texture;
+
+                            list.AddToArray(Typesbase.JsonSerialize());
+                            typesAdded.Add(typeName);
+
+
+                            DecorLogger.LogToFile("JSON - " + Typesbase.JsonSerialize().ToString());
+                            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                            {
+                                outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                            }
+                        }
+                        else
+                        {
+                            DecorLogger.LogToFile("Type with \"name\": \"" + currentType.name + "\" already exists for \"" + name + "\" check decor file for duplicates, type skipped");
+                        }
+
+                    }
+                }
                 if (GenerateTypeConfig.DecorTypes.TryGetValue(name, out List<DecorType> blockTypes))
                 {
                     foreach (var currentType in blockTypes)
@@ -138,7 +137,6 @@ namespace Nach0.Decor
                             DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
 
 
-                            //Typesbase.baseType.categories.Clear();
                             Typesbase.typeName = typeName;
                             Typesbase.baseType.categories = categories;
                             Typesbase.baseType.categories.Add(currentType.texture);
@@ -152,7 +150,6 @@ namespace Nach0.Decor
                             {
                                 outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
                             }
-                            //Typesbase.baseType.categories.Clear();
                         }
                         else
                         {
@@ -162,11 +159,68 @@ namespace Nach0.Decor
                     }
                 }
                 ItemTypesServer.BlockRotator.Patches.AddPatch(new ItemTypesServer.BlockRotator.BlockGeneratePatch(GenerateTypeConfig.MOD_FOLDER, -99999, list));
-                using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
-                {
-                    outputFile.WriteLine("");
-                }
             }
+            else
+            {
+                var TypeParent = new DecorTypeBase();
+                TypeParent.icon = GenerateTypeConfig.MOD_ICON_PATH + name + GenerateTypeConfig.ICONTYPE;
+
+                var TypeUp = new DecorTypeBase();
+                TypeUp.mesh = GenerateTypeConfig.MOD_MESH_PATH + name + ".up" + GenerateTypeConfig.MESHTYPE;
+                TypeUp.colliders.boxes = typeColliders.Colliders_Dict[name + "Up"];
+
+                var TypeDown = new DecorTypeBase();
+                TypeUp.mesh = GenerateTypeConfig.MOD_MESH_PATH + name + ".down" + GenerateTypeConfig.MESHTYPE;
+                TypeUp.colliders.boxes = typeColliders.Colliders_Dict[name + "Down"];
+
+                if (GenerateTypeConfig.DecorTypes.TryGetValue("_ALL", out List<DecorType> allBlockTypes))
+                {
+                    foreach (var currentType in allBlockTypes)
+                    {
+                        var typeName = GenerateTypeConfig.TYPEPREFIX + name + "." + currentType.name;
+                        var typeDownName = typeName + ".down";
+                        var typeUpName = typeName + ".up";
+                        if (!typesAdded.Contains(typeName))
+                        {
+
+                            DecorLogger.LogToFile("Generating type \"" + typeName + "\" with \"name\": \"" + currentType.name + "\" \"type\": \"" + currentType.type + "\" \"texture\": \"" + currentType.texture + "\"");
+
+                            TypeParent.name = typeName;
+                            TypeParent.categories = new List<string>(categories);
+                            TypeParent.categories.Add(currentType.texture);
+                            TypeParent.sideall = currentType.texture;
+                            TypeParent.rotatablexn = typeUpName;
+                            TypeParent.rotatablexp = typeUpName;
+                            TypeParent.rotatablezn = typeDownName;
+                            TypeParent.rotatablezp = typeDownName;
+
+                            TypeUp.name = typeUpName;
+                            TypeDown.name = typeDownName;
+
+                            typesAdded.Add(typeName);
+
+
+                            DecorLogger.LogToFile("JSON - " + TypeParent.JsonSerialize().ToString());
+                            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+                            {
+                                outputFile.WriteLine("Type \"" + typeName + "\" has texture \"" + currentType.texture + "\"");
+                            }
+                        }
+                        else
+                        {
+                            DecorLogger.LogToFile("Type with \"name\": \"" + currentType.name + "\" already exists for \"" + name + "\" check decor file for duplicates, type skipped");
+                        }
+
+                    }
+                }
+
+            }
+
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(GenerateTypeConfig.GAME_SAVEFILE, "TypeList.txt"), true))
+            {
+                outputFile.WriteLine("");
+            }
+
         }
         public static void generateRecipes(string name)
         {
@@ -275,6 +329,7 @@ namespace Nach0.Decor
         {
             if (GenerateTypeConfig.DecorConfigFileTrue)
             {
+
                 foreach (string type in IlligalTypes)
                 {
                     GenerateTypeConfig.TypeList.Remove(type);
@@ -283,7 +338,7 @@ namespace Nach0.Decor
                 {
                     if (!typeColliders.Colliders_Dict.ContainsKey(type))
                     {
-                        generateDecorTypes.generateTypes(type, typeColliders.Generic);
+                        generateDecorTypes.generateTypes(type, typeColliders.Colliders_Dict["Generic"]);
                     }
                     else
                     {
@@ -298,6 +353,7 @@ namespace Nach0.Decor
         {
             if (GenerateTypeConfig.DecorConfigFileTrue)
             {
+                GenerateTypeConfig.TypeList.Add("Slab");
                 foreach (string type in GenerateTypeConfig.TypeList)
                 {
                     generateDecorTypes.generateRecipes(type);

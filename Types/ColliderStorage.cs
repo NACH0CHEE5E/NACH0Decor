@@ -15,11 +15,36 @@ using Newtonsoft.Json.Linq;
 
 namespace Nach0.Decor
 {
-    public class typeColliders
+    public static class typeColliders
     {
 
         public static Dictionary<string, List<Colliders.Boxes>> Colliders_Dict = new Dictionary<string, List<Colliders.Boxes>>();
 
+        static typeColliders()
+        {
+            Colliders_Dict.Add(nameof(Generic), Generic);
+            Colliders_Dict.Add(nameof(Stairs), Stairs);
+            Colliders_Dict.Add(nameof(StairsCornerInverted), StairsCornerInverted);
+            Colliders_Dict.Add(nameof(StairsCorner), StairsCorner);
+            Colliders_Dict.Add(nameof(InvertedStairs), InvertedStairs);
+            Colliders_Dict.Add(nameof(InvertedStairsCornerInverted), InvertedStairsCornerInverted);
+            Colliders_Dict.Add(nameof(InvertedStairsCorner), InvertedStairsCorner);
+            Colliders_Dict.Add(nameof(VerticalSlab), VerticalSlab);
+            Colliders_Dict.Add(nameof(Ramp), Ramp);
+            Colliders_Dict.Add(nameof(RampCornerInverted), RampCornerInverted);
+            Colliders_Dict.Add(nameof(RampCorner), RampCorner);
+            Colliders_Dict.Add(nameof(InvertedRamp), InvertedRamp);
+            Colliders_Dict.Add(nameof(InvertedRampCornerInverted), InvertedRampCornerInverted);
+            Colliders_Dict.Add(nameof(InvertedRampCorner), InvertedRampCorner);
+            Colliders_Dict.Add(nameof(QuarterBlock), QuarterBlock);
+            Colliders_Dict.Add(nameof(RaisedQuarterBlock), RaisedQuarterBlock);
+            Colliders_Dict.Add(nameof(EdgeBlock), EdgeBlock);
+            Colliders_Dict.Add(nameof(RaisedEdgeBlock), RaisedEdgeBlock);
+            Colliders_Dict.Add(nameof(CornerBlock), CornerBlock);
+            Colliders_Dict.Add(nameof(RaisedCornerBlock), RaisedCornerBlock);
+            Colliders_Dict.Add(nameof(SlabUp), SlabUp);
+            Colliders_Dict.Add(nameof(SlabDown), SlabDown);
+        }
 
         public static List<Colliders.Boxes> Generic = new List<Colliders.Boxes>()
                 {
@@ -33,7 +58,6 @@ namespace Nach0.Decor
                     new Colliders.Boxes(new List<float>(){ 0.5f, 0.25f, 0.5f }, new List<float>(){ 0f, 0f, -0.5f }),
                     new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, 0.5f }, new List<float>(){ 0.25f, 0.25f, -0.5f })
                 };
-        //Colliders_Dict["Stairs"] = Stairs;
         public static List<Colliders.Boxes> StairsCornerInverted = new List<Colliders.Boxes>()
                 {
                     new Colliders.Boxes(new List<float>(){ 0.5f, -0.25f, 0.5f }, new List<float>(){ -0.5f, -0.5f, -0.5f }),
@@ -200,6 +224,14 @@ namespace Nach0.Decor
                 {
                     new Colliders.Boxes(new List<float>(){ 0.5f, 0.5f, 0.5f }, new List<float>(){ 0f, 0f, -0.5f }),
                     new Colliders.Boxes(new List<float>(){ 0f, 0.5f, 0.5f }, new List<float>(){ -0.5f, 0f, 0f })
+                };
+        public static List<Colliders.Boxes> SlabUp = new List<Colliders.Boxes>()
+                {
+                    new Colliders.Boxes(new List<float>(){ -0.5f, 0f, -0.5f }, new List<float>(){ 0.5f, 0.5f, 0.5f })
+                };
+        public static List<Colliders.Boxes> SlabDown = new List<Colliders.Boxes>()
+                {
+                    new Colliders.Boxes(new List<float>(){ -0.5f, -0.5f, -0.5f }, new List<float>(){ 0.5f, 0f, 0.5f })
                 };
     }
 }
