@@ -240,7 +240,7 @@ namespace Nach0.Decor
             {
                 return false;
             }
-            if (chat.StartsWith("?decoradd"))
+            if (chat.StartsWith("/decoradd"))
             {
                 DecorLogger.LogToFile("Command Attempt: " + chat + " by player: " + player.ID);
                 if (PermissionsManager.CheckAndWarnPermission(player, "NACH0.Decor.Add") || ServerManager.HostingSettings.NetworkType == Shared.Options.EServerNetworkType.Singleplayer)
@@ -256,8 +256,8 @@ namespace Nach0.Decor
                     {
                         DecorLogger.LogToFile("Type in inventory Slot 1: " + typeName);
                         Chat.Send(player, "<color=blue>Type in inventory Slot 1: " + typeName + "</color>");
-                        var requestedDecorType = chat.Replace("?decoradd2", "");
-                        requestedDecorType = requestedDecorType.Replace("?decoradd", "");
+                        var requestedDecorType = chat.Replace("/decoradd2", "");
+                        requestedDecorType = requestedDecorType.Replace("/decoradd", "");
                         requestedDecorType = requestedDecorType.Replace(" ", "");
                         var decorType = "";
                         if (requestedDecorType != "")
@@ -313,6 +313,10 @@ namespace Nach0.Decor
                             GenerateTypeConfig.DecorTypes[decorType].Add(newDecorTypeProperties);
                             var jsonWithAddedType = JsonConvert.SerializeObject(GenerateTypeConfig.DecorTypes, Formatting.Indented);
                             File.WriteAllText(GenerateTypeConfig.NEW_FILE, jsonWithAddedType);
+                            DecorLogger.LogToFile("Added " + newDecorTypeProperties.type + " to " + decorType);
+                            Chat.Send(player, "<color=blue>" + "Added " + newDecorTypeProperties.type + " to " + decorType + "</color>");
+                            Chat.Send(player, "<color=blue>World/Server needs to be restarted to see new type, world is still playable and more can be added before restarting</color>");
+                            return true;
                             //ServerLog.LogAsyncMessage(new LogMessage("Texture and name do not exist, able to add new type", LogType.Log));
                         }
                     }

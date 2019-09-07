@@ -3,7 +3,7 @@
     "name": "NACH0.Decor",
     "version": "3.2.0",
     "namepretty": "NACH0 Decor",
-    "enabled": true,
+    "enabled": false,
     "marksgamemodded": true,
     "dllpath": "Decor.dll",
     "compatibleversions": [
@@ -50,19 +50,19 @@
       }
     ],
     "patchnotes": [
-	{
-		"version": "3.2.0",
-		"notes": [
-			"cleaned stuff up to make it easier to add new decor types",
-			"added _all to the decor types file which will generate that type for all the decor types",
-			"added the ability to put your own meshes in the mesh folder and for them to be added into the game",
-			"reworked how types are generated making for much more easier to naviagate code (will make updates and fixes much easier)",
-			"Added a command to allow you to add types to the DecorTypes.json",
-			"Added a command to list all the available decor types",
-			"slight category changes resulting in types not having a parent type that they are ordered with anymore",
-			"changes to the log to allow me to debug slightly easier (added the contents of the decortypes.json and typelist.txt to the file"
-		]
-	},
+      {
+        "version": "3.2.0",
+        "notes": [
+          "cleaned stuff up to make it easier to add new decor types",
+          "added _all to the decor types file which will generate that type for all the decor types",
+          "added the ability to put your own meshes in the mesh folder and for them to be added into the game",
+          "reworked how types are generated making for much more easier to naviagate code (will make updates and fixes much easier)",
+          "Added a command to allow you to add types to the DecorTypes.json",
+          "Added a command to list all the available decor types",
+          "slight category changes resulting in types not having a parent type that they are ordered with anymore",
+          "changes to the log to allow me to debug slightly easier (added the contents of the decortypes.json and typelist.txt to the file"
+        ]
+      },
       {
         "version": "3.1.0",
         "notes": [
